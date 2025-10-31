@@ -1,5 +1,3 @@
----
-
 ## 🕹️ Saltos e Segredos
 
 **Saltos e Segredos** é um jogo desenvolvido com [Greenfoot](https://www.greenfoot.org/door), voltado para aprendizado e experimentação com programação orientada a objetos em Java.  
