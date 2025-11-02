@@ -13,13 +13,13 @@ public class Som extends Actor
 {
     /** Armazena as trilhas sonoras (musicas)*/
     private HashMap <String, GreenfootSound> trilhas;
-    
+
     /** Armazena os efeitos sonoros */
     private HashMap <String, GreenfootSound> efeitos;
-    
+
     /** Referência ao objeto GreenfootSound da último trilha sonora tocada.*/
     private GreenfootSound tocaTrilhas;
-    
+
     /** Referência ao objeto GreenfootSound do último efeito sonoro tocado. */
     private GreenfootSound tocaEfeitos;
 
@@ -45,10 +45,10 @@ public class Som extends Actor
      *  Método chamado automaticamente pelo Greenfoot a cada ciclo de execução.
      *  Método principal de atuação (loop) da classe Som. 
      */
-    
+
     public void act()
     {
-        mutarTrilha();
+        comandos();
     }
 
     /**
@@ -74,16 +74,13 @@ public class Som extends Actor
     }
 
     /**
-     * Verifica se a tecla 'm' foi pressionada.
-     * Se a tecla 'm' for pressionada e uma trilha sonora estiver tocando,
-     * a trilha é parada (mutada).
+     * Verifica os comandos de entrada do usuário (teclado) a cada ciclo.
+     * Atualmente, verifica se a tecla 'm' foi pressionada para chamar {@code mutarTrilha()}.
      */
 
-    private void mutarTrilha(){
+    private void comandos(){
         if(Greenfoot.isKeyDown("m")){
-            if(tocaTrilhas != null){
-                tocaTrilhas.stop();
-            }
+            mutarTrilha();
         }
     }
 
@@ -107,5 +104,15 @@ public class Som extends Actor
     public void tocarEfeito(String efeito){
         tocaEfeitos = efeitos.get(efeito);
         tocaEfeitos.play();
+    }
+
+    /**
+     * Para a reprodução da trilha sonora atual.
+     */
+    
+    public void mutarTrilha(){
+        if(tocaTrilhas != null){
+            tocaTrilhas.stop();
+        }
     }
 }
