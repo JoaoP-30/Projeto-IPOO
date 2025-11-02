@@ -1,8 +1,9 @@
 #Greenfoot project file
-editor.fx.0.height=0
-editor.fx.0.width=0
+class.Som.image=som.png
+editor.fx.0.height=736
+editor.fx.0.width=1366
 editor.fx.0.x=0
-editor.fx.0.y=0
+editor.fx.0.y=32
 height=736
 package.numDependencies=0
 package.numTargets=13
