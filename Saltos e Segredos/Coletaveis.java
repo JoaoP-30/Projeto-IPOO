@@ -1,19 +1,37 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Coletaveis here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Classe abstrata base para todos os itens coletáveis no jogo.
+ * Define o comportamento padrão que ocorre quando um jogador "coleta" o item.
+ * @author Joao Fernandes 
+ * @version 1.0
  */
-public class Coletaveis extends Actor
+public abstract class Coletaveis extends Actor
 {
+    //Instância da classe Som, usada para tocar o efeito sonoro da coleta
+    private Som som;
+
     /**
-     * Act - do whatever the Coletaveis wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * Construtor da classe Coletaveis.
+     * Inicializa o objeto 'som' para preparar o efeito sonoro.
      */
-    public void act()
-    {
-        // Add your action code here.
+
+    public Coletaveis(){
+        som = new Som();
+    }
+
+    /**
+     *  Verifica se o {@link Jogador} tocou neste objeto e, em caso afirmativo,
+     *  executa a lógica de coletar.
+     *  Este método é chamado dentro do método 'act()' das subclasses.
+     */
+
+    public void coletar(){
+        Actor jogador = getOneIntersectingObject(Jogador.class);
+
+        if(jogador != null){
+            som.tocarEfeito("coin.wav");
+            getWorld().removeObject(this);
+        }
     }
 }
