@@ -6,16 +6,26 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Fase_2 extends World
+public class Fase_2 extends Fases
 {
-
+    private Jogador jogador;
+    
     /**
      * Constructor for objects of class Fase_2.
      * 
      */
-    public Fase_2()
+    public Fase_2(Jogador jogador)
     {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(600, 400, 1); 
+        this.jogador = jogador;
+    }
+
+    private void prepare(){
+    
+    }
+
+    public void irParaProximaFase(){
+        paraTrilha();
+        //Fase_3 proximaFase = new Fase_3(jogador);
+        //Greenfoot.setWorld(proximaFase);
     }
 }
