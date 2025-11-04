@@ -1,19 +1,58 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Portal here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Representa um portal de transição de fase.
+ * Este ator verifica se o {@link Jogador} está tocando-o e, ao mesmo tempo,
+ * pressionando a tecla "c". Se ambas as condições forem verdadeiras,
+ * ele aciona a mudança para o próximo nível (Fase).
+ * @author Joao Fernandes 
+ * @version 1.0
  */
 public class Portal extends Actor
 {
     /**
-     * Act - do whatever the Portal wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * Construtor da classe Portal.
+     * Espelha a imagem do portal horizontalmente no momento da sua criação.
+     * (Útil caso a imagem original esteja virada para o lado oposto ao desejado).
      */
+    
+    public Portal(){
+        getImage().mirrorHorizontally();
+    }
+
+    /**
+     * Método chamado automaticamente pelo Greenfoot a cada ciclo de execução.
+     * Método principal de atuação (loop) da classe Portal.
+     * A cada passo (act), verifica se o jogador ativou o portal.
+     */
+    
     public void act()
     {
-        // Add your action code here.
+        entrouNoPortal();
+    }
+
+    /**
+     * Verifica se o jogador está tocando o portal e pressionando a tecla "c".
+     * Se as condições forem atendidas, ele identifica qual é a Fase (Mundo) atual
+     * e chama o método {@code irParaProximaFase()} específico daquela fase.
+     */
+    
+    private void entrouNoPortal(){
+        Actor jogador = getOneIntersectingObject(Jogador.class);
+
+        if(Greenfoot.isKeyDown("c") && jogador != null){
+            World faseAtual = getWorld();
+            
+            // Verifica o tipo do mundo atual para chamar o método correto
+            if (faseAtual instanceof Fase_1){
+                // Converte (cast) o mundo para Fase_1 e chama o método
+                ((Fase_1) faseAtual).irParaProximaFase();
+            }
+            else if(faseAtual instanceof Fase_2){
+                // Converte (cast) o mundo para Fase_2 e chama o método
+                ((Fase_2) faseAtual).irParaProximaFase();
+            }
+
+        }
     }
 }
