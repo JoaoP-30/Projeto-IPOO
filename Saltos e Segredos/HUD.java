@@ -33,6 +33,20 @@ public class HUD extends Actor {
         atualizarHUD();
     }
     
+    
+    public HUD() {
+        jogador = new Jogador();
+
+        coracao = new GreenfootImage("coracao.png");
+        moeda = new GreenfootImage("moeda.png");
+        
+        // Chama o método de atualização uma vez no construtor 
+        // para exibir o HUD inicial assim que ele é criado.
+        atualizarHUD();
+    }
+    
+    
+    
     /**
      * Método principal de atuação (loop) do HUD.
      * A cada ciclo do jogo, ele chama {@link #atualizarHUD()} para 

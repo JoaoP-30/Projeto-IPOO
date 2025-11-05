@@ -11,16 +11,16 @@ import java.util.HashMap;
  */
 public class Som extends Actor
 {
-    /** Armazena as trilhas sonoras (musicas)*/
+    //Armazena as trilhas sonoras (musicas)
     private HashMap <String, GreenfootSound> trilhas;
 
-    /** Armazena os efeitos sonoros */
+    //Armazena os efeitos sonoros
     private HashMap <String, GreenfootSound> efeitos;
 
-    /** Referência ao objeto GreenfootSound da último trilha sonora tocada.*/
+    //Referência ao objeto GreenfootSound da último trilha sonora tocada.
     private GreenfootSound tocaTrilhas;
 
-    /** Referência ao objeto GreenfootSound do último efeito sonoro tocado. */
+    //Referência ao objeto GreenfootSound do último efeito sonoro tocado.
     private GreenfootSound tocaEfeitos;
 
     /**
@@ -92,7 +92,10 @@ public class Som extends Actor
 
     public void tocarTrilha(String trilha){
         tocaTrilhas = trilhas.get(trilha);
-        tocaTrilhas.playLoop();
+        
+        if(tocaTrilhas != null){
+            tocaTrilhas.playLoop();
+        }
     }        
 
     /**
@@ -103,7 +106,11 @@ public class Som extends Actor
 
     public void tocarEfeito(String efeito){
         tocaEfeitos = efeitos.get(efeito);
-        tocaEfeitos.play();
+        
+        if(tocaEfeitos != null){
+            tocaEfeitos.setVolume(70);
+            tocaEfeitos.play();
+        }
     }
 
     /**

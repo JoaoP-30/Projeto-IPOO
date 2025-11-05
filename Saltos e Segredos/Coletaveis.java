@@ -26,7 +26,7 @@ public abstract class Coletaveis extends Actor
         this.jogador = jogador; 
         som = new Som();
     }
-
+    
     /**
      * Método genérico de coleta, chamado pelas subclasses (geralmente dentro do 'act').
      * * Verifica se o ator está tocando no jogador. Se estiver, aplica uma
@@ -48,6 +48,9 @@ public abstract class Coletaveis extends Actor
             }
             else if(acao == 2){
                 jogador.aumentarVida();
+            }
+            else if(acao == 3){
+                //jogador.pegouAChave();
             }
             
             som.tocarEfeito(efeito);

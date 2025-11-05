@@ -30,6 +30,16 @@ public class Fruta_1 extends Coletaveis
     }
     
     /**
+     * Construtor auxiliar afim de facilitar testes e criação de novas fases.
+     */
+    
+    public Fruta_1(){
+        super(new Jogador());
+        acao = 2;
+    }
+    
+    
+    /**
      * Método chamado automaticamente pelo Greenfoot a cada ciclo de execução.
      * Método principal de atuação (loop) da classe Fruta_1.
      * <p>

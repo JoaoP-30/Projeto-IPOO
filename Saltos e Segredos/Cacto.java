@@ -20,6 +20,16 @@ public class Cacto extends Inimigos
         super(jogador);
     }
     
+     
+    /**
+     * Construtor auxiliar afim de facilitar a criação e testes de fases.
+     */
+    
+    public Cacto(){
+        super(new Jogador());
+    }
+    
+    
     /**
      * Método principal de atuação (loop) do Cacto.
      * A única ação do cacto é verificar continuamente se pode atacar o jogador.

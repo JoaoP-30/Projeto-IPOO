@@ -45,6 +45,29 @@ public class Monstro extends Inimigos
         tempo = 300;
     }
 
+     
+    /**
+     * Construtor auxiliar afim de facilitar a criação e testes de fases.
+     */
+    
+    public Monstro(){
+        super(new Jogador());
+        
+        animacaoD = new GreenfootImage[4];
+
+        for (int i = 0; i < animacaoD.length; i++){
+            animacaoD[i] = new GreenfootImage("/monstro/monstro" + (i + 1) + ".png");
+            animacaoD[i].mirrorHorizontally();
+        }
+
+        frame = 0;
+
+        velocidade = -2;
+        cont = 0;
+        tempo = 300;
+    }
+    
+    
     /**
      * Método principal de atuação (loop) do Monstro.
      * Chama os métodos de {@link #movimento()} e {@link #ataque()} a cada ciclo.

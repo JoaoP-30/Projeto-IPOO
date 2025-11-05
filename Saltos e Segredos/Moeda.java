@@ -47,6 +47,27 @@ public class Moeda extends Coletaveis
         acao = 1;
     }
 
+    /**
+     * Construtor auxiliar afim de facilitar testes e criação de novas fases.
+     */
+    
+    public Moeda(){
+        super(new Jogador());
+        
+          moedas = new GreenfootImage[12];
+
+        for (int i = 0; i < moedas.length; i++){
+            // O Greenfoot automaticamente procura na pasta "images/"
+            moedas[i] = new GreenfootImage("/coins/coin" + (i + 1) + ".png");
+        }
+
+        frame = 0;
+        velAnimacao = 14;
+        contAnimacao = 0;
+    
+        acao = 1;
+    }
+    
     
     /**
      * Método chamado automaticamente pelo Greenfoot a cada ciclo de execução.
