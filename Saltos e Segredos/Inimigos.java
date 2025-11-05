@@ -1,19 +1,57 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Inimigos here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Classe abstrata base para todos os inimigos do jogo.
+ * * Fornece a funcionalidade central de 'ataque', que verifica a colisão 
+ * com o jogador e aplica dano, respeitando o tempo de invulnerabilidade.
+ * * @author Joao Fernandes 
+ * @version 1.0
  */
-public class Inimigos extends Actor
+
+public abstract class Inimigos extends Actor
 {
+    //Referência ao jogador, necessária para aplicar dano.
+    private Jogador jogador;
+    //Instância para tocar o som de dano;
+    private Som som;
+
     /**
-     * Act - do whatever the Inimigos wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * Construtor da classe Inimigos.
+     * Armazena a referência do jogador e inicializa o objeto de som.
+     * @param jogador A instância do Jogador que está no mundo.
      */
+
+    public Inimigos(Jogador jogador){
+        this.jogador = jogador;
+        som = new Som();
+    }
+
+    /**
+     * Método Act (abstrato). 
+     * As subclasses (ex: Cacto, Monstro) devem implementar seu próprio 
+     * comportamento, como movimento.
+     */
+
     public void act()
     {
-        // Add your action code here.
+
+    }
+
+    /**
+     * Método de ataque padrão para todos os inimigos.
+     * Chamado pelas subclasses (geralmente dentro do 'act').
+     * * Verifica se está tocando no jogador. Se sim, E se o jogador NÃO 
+     * estiver invulnerável ({@link Jogador#estaInvulneravel()}), 
+     * aplica dano ({@link Jogador#receberDano()}) e toca o som "hurt.wav".
+     */
+    
+    public void ataque(){
+        Actor alvo = getOneIntersectingObject(Jogador.class);
+        
+        // Só ataca se houver colisão E o jogador não estiver invulnerável
+        if(alvo != null && !jogador.estaInvulneravel()){
+            jogador.receberDano();
+            som.tocarEfeito("hurt.wav");
+        }
     }
 }
