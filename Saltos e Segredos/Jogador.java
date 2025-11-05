@@ -32,6 +32,14 @@ public class Jogador extends Actor
     private int aceleracao;
     //Força aplicada quando o jogador pula
     private int forcaDoSalto;
+    //Posição inicial do jogador no eixo x
+    private int posX;
+    //Posição inicial do jogador no eixo y
+    private int posY;
+    //Duração da partida em segundos
+    private int tempo;
+    //Contador para segundos, quando chega a 60 o 'tempo' é incrementado em 1
+    private int cont;
     //Objeto para gerenciar e tocar efeitos sonoros
     private Som som;
 
@@ -39,7 +47,7 @@ public class Jogador extends Actor
      * Construtor da classe Jogador.
      * Inicializa os arrays de animação carregando as imagens.
      * Define os valores iniciais para todos os atributos:
-     * - Status (vida, moedas, invulnerabilidade).    
+     * - Status (vida, moedas, ).    
      * - Física (velocidade, "gravidade", força do salto).
      * - Animação (frame).
      * - Som.
@@ -66,20 +74,27 @@ public class Jogador extends Actor
         aceleracao = 1;
         forcaDoSalto = 16;
 
+        tempo = 0;
+        cont = 0;
+        
         som = new Som();
     }
 
     /**
      * Método chamado automaticamente pelo Greenfoot a cada ciclo de execução.
      * Método principal de atuação (loop) da classe Jogador.
-     * Ele gerencia o estado do jogador chamando:
-     * 1. {@link #movimento()} - Verifica entradas do teclado
-     * 2. {@link #verificaQueda()} - Aplica gravidade se esriver no ar.
-     * 3. {@link #teto()} - Verifica colisão com o teto
+    * Ele gerencia o estado do jogador chamando:
+     * 1. {@link #contarTempo()} - Incrementa o relógio do jogo.
+     * 2. {@link #tempoInvulneravel()} - Decrementa o timer de invulnerabilidade.
+     * 3. {@link #movimento()} - Verifica entradas do teclado
+     * 4. {@link #verificaQueda()} - Aplica gravidade se estiver no ar.
+     * 5. {@link #teto()} - Verifica colisão com o teto
      */
 
     public void act()
     {
+        contarTempo();
+        tempoInvulneravel();
         movimento();
         verificaQueda();
         teto();
@@ -90,7 +105,7 @@ public class Jogador extends Actor
      * - Se "right"/"left: chama {@link #moverDireita()} ou {@link #moverEsquerda()}.
      * - Se "up": chama {@link #salto()} (apenas se não estiver pulando).
      * * Também verifica se o jogador caiu no fundo do mundo {@link #estaNoFundo()},
-     * e o reposiciona no topo em um local aleatório.
+     * e o reposiciona na posição inicial.
      */
 
     private void movimento(){
@@ -106,8 +121,7 @@ public class Jogador extends Actor
             }
         }
         else{
-            int posY = Greenfoot.getRandomNumber(getWorld().getWidth());
-            setLocation(posY,0);
+            setLocation(posY,posX);
         }
     }
 
@@ -230,7 +244,7 @@ public class Jogador extends Actor
      * Isso evita que o jogador afunde parcialmente no chão.
      * * @param solo O ator 'Solo' com o qual o jogador colidiu.
      */
-    
+
     private void moverParaSolo(Actor solo){
         int soloAltura = solo.getImage().getHeight();
         // Calcula o Y exato para o jogador ficar em cima do solo
@@ -246,7 +260,7 @@ public class Jogador extends Actor
      * Usa 'getOneObjectAtOffset' para verificar acima da "cabeça" do jogador.
      * * @return true se bateu no teto, false caso contrário.
      */
-    
+
     private boolean teto(){
         int jogAltura = getImage().getHeight();
         // Ponto de verificação (acima do centro da cabeça do jogador)
@@ -269,7 +283,7 @@ public class Jogador extends Actor
      * Isso evita que o jogador atravesse o teto.
      * * @param teto O ator 'Solo' (usado como teto) com o qual o jogador colidiu.
      */
-    
+
     private void bateuNoTeto(Actor teto){
         int tetoAltura = teto.getImage().getHeight();
         // Calcula o Y exato para o jogador ficar abaixo do teto
@@ -283,7 +297,7 @@ public class Jogador extends Actor
      * (Levando em consideraçãp que o mundk possui 600 pixels de altura).
      * * @return true se o jogador caiu (Y >= 599), false caso contrário.
      */
-    
+
     private boolean estaNoFundo(){
         int posY = getY();
 
@@ -292,5 +306,114 @@ public class Jogador extends Actor
         }
 
         return false;
+    }
+
+    /**
+     * Define as posições inicias no eixo x e y. Este método é chamado quando o jogador é
+     * adicionado ao mundo.
+     * @param posY A posião no eixo Y inicial (é a mesma que o jogador é adicionado ao mundo).
+     * @param posX A posião no eixo X inicial (é a mesma que o jogador é adicionado ao mundo).
+     */
+
+    public void inserirPosicaoInicial(int posY, int posX){
+        this.posY= posY;
+        this.posX = posX;
+    }
+
+    /**
+     * Aplica dano ao jogador.
+     * Reduz a 'vida' em 1 e reinicia o 'tempoInvulneravel' para 180 ciclos (3 segundos).
+     * Chamado geralmente por um 'Inimigo'.
+     */
+    
+    public void receberDano(){
+        vida--;
+        tempoInvulneravel = 180;
+    }
+
+    /**
+     * Contagem regressiva do tempo de invulnerabilidade.
+     * Chamado a cada 'act', reduz o contador 'tempoInvulneravel' até que chegue a 0.
+     */
+    
+    private void tempoInvulneravel(){
+        if(tempoInvulneravel > 0){
+            tempoInvulneravel--;
+        }
+    }
+
+    /**
+     * Verifica se o jogador está atualmente invulnerável a dano.
+     * Usado por inimigos para saber se podem aplicar dano.
+     * @return true se 'tempoInvulneravel' for maior que 0, false caso contrário.
+     */
+    
+    public boolean estaInvulneravel(){
+        return tempoInvulneravel != 0;
+    }
+    
+    /**
+     * Aumenta a vida do jogador em 1.
+     * Geralmente chamado por um item coletável (ex: Coração).
+     */
+    
+    public void aumentarVida(){
+        vida++;
+    }
+
+    /**
+     * Obtém a contagem atual de vida do jogador.
+     * Usado pelo 'Mundo' para exibir na tela.
+     * @return O valor inteiro da vida atual.
+     */
+    
+    public int obterVida(){
+        return vida;
+    }
+
+    /**
+     * Incrementa a contagem de moedas do jogador em 1.
+     * Geralmente chamado por um item coletável (ex: Moeda).
+     */
+    
+    public void pegarMoeda(){
+        moedas++;
+    }
+
+    /**
+     * Obtém a contagem atual de moedas do jogador.
+     * Usado pelo 'Mundo' para exibir na tela.
+     * @return O valor inteiro das moedas atuais.
+     */
+    
+    public int obterMoedas(){
+        return moedas;
+    }
+    
+    /**
+     * Mecanismo interno de contagem de tempo.
+     * Usa 'cont' para contar os ciclos (frames) do 'act'.
+     * A cada 60 ciclos (aproximadamente 1 segundo), incrementa a 
+     * variável 'tempo' (segundos) e zera 'cont'.
+     */
+    
+    private void contarTempo(){
+        if(cont == 60){
+            tempo++;
+            cont = 0;
+        }
+        else{
+            cont++;
+        }
+    }
+
+    /**
+     * Obtém o tempo total de partida decorrido, em segundos.
+     * Usado pelo 'Mundo' para exibir na tela.
+     * @return O tempo total em segundos.
+     */
+    
+    public int obterTempo(){
+        return tempo;
     }
 }
