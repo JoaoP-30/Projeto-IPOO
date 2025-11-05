@@ -12,12 +12,17 @@ Este repositório contém a estrutura inicial do projeto, com as classes princip
 - `Fase_2`
 - `Tela_Inicial`
 - `Tela_Final`
+- `Fases` (superclasse abstrata)
 
-**Actors:**
+**Actors e Itens:**
 - `Jogador`
-- `Inimigos`
-- `Coletaveis`
+- `Inimigos` (abstrata)
+- `Monstro`
+- `Coletaveis` (abstrata)
+- `Chave`
+- `Moeda`
 - `Portal`
+- `Chao` (plataforma)
 - `Solo`
 - `Chao_Falso`
 - `Som`
@@ -29,7 +34,7 @@ Este repositório contém a estrutura inicial do projeto, com as classes princip
 ### 🚧 Status do projeto
 
 > ⚠️ **Em desenvolvimento**  
-As classes foram criadas, mas ainda não possuem lógica implementada. O objetivo inicial é estruturar o ambiente e definir os papéis de cada componente.
+Todas as classes fundamentais foram implementadas e estão funcionando conforme esperado. A arquitetura do projeto está solida, com os papéis de cada componente bem definidos.
 
 ---
 
@@ -47,10 +52,9 @@ As classes foram criadas, mas ainda não possuem lógica implementada. O objetiv
 
 ### 📌 Objetivos futuros
 
-- Implementar movimentação do jogador
-- Criar lógica de colisão com inimigos e coletáveis
-- Desenvolver sistema de fases e transições
-- Adicionar efeitos sonoros e HUD funcional
+- Criar novas fases com desafios variados
+- Introduzir novos tipos de inimigos e coletáveis
+- Explorar mecânicas que tornem o jogo mais dinâmico e divertido
 
 ---
 
