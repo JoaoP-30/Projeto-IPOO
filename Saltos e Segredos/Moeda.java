@@ -18,14 +18,21 @@ public class Moeda extends Coletaveis
     private final int velAnimacao;
     //Contador para controlar o delay até a próxima troca de frame.
     private int contAnimacao;
-
+    // Define a ação que esta fruta executará ao ser coletada (1 = pegar moeda).
+    private int acao;
+    
     /**
      * Construtor da classe Moeda.
      * Preenche o vetor moedas para as imagens da animação e 
      * inicializa a variáveis de controle de animação.
+     * Define sua ação específica como '1' (que, na classe 
+     * {@link Coletaveis}, corresponde a {@link Jogador#pegarMoeda()}) e 
+     * @param jogador A referência ao jogador, passada para a superclasse {@link Coletaveis}.
      */
     
-    public Moeda(){
+    public Moeda(Jogador jogador){
+        super(jogador);
+        
         moedas = new GreenfootImage[12];
 
         for (int i = 0; i < moedas.length; i++){
@@ -36,6 +43,8 @@ public class Moeda extends Coletaveis
         frame = 0;
         velAnimacao = 14;
         contAnimacao = 0;
+    
+        acao = 1;
     }
 
     
@@ -51,7 +60,8 @@ public class Moeda extends Coletaveis
     public void act()
     {
         animacao();
-        coletar();
+        // Chama o método herdado da classe Coletaveis
+        coletar(acao, "coin.wav");
     }
     
     /**
