@@ -5,10 +5,15 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (Seu Nome / Joao Fernandes / Maria Clara O Pereira) 
  * @version 1.0
  */
-public class Tela_Inicial extends Fases
+public class Tela_Inicial extends World
 {
+    private static GreenfootSound trilha;
+    
     public Tela_Inicial()
     {    
+        // Cria um novo mundo com 1150x600 células com um tamanho de célula de 1x1 pixels.
+        super(1150, 600, 1); 
+        
         background();
         desenharTextos();
         adicionarBotoes();
@@ -60,17 +65,16 @@ public class Tela_Inicial extends Fases
     {
         if (id == 1)
         {
-            paraTrilha();
+            trilha.stop();
             Greenfoot.setWorld(new Fase_1());
         }
         else if (id == 2)
         {
-            //Greenfoot.setWorld(new Fase_1());
+            //Atualmente não faz nada
         }
         // Verifica se o botão "Como Jogar?" foi clicado
         else if (id == 3) 
         {
-            paraTrilha();
             // Vai para a tela de instruções que acabamos de criar
             Greenfoot.setWorld(new Tela_Instrucoes());
         }
@@ -82,6 +86,11 @@ public class Tela_Inicial extends Fases
      */
     private void prepare()
     {
-        iniciaTrilha("first.mp3");
+        
+    }
+
+    public void started(){
+        trilha = new GreenfootSound("first.mp3");
+        trilha.playLoop();
     }
 }

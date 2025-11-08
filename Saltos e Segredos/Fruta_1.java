@@ -36,6 +36,8 @@ public class Fruta_1 extends Coletaveis
     public Fruta_1(){
         super(new Jogador());
         acao = 2;
+        
+        getImage().scale(34,36);
     }
     
     

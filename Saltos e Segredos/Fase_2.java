@@ -30,6 +30,21 @@ public class Fase_2 extends Fases
     }
     
     /**
+     * Construtor auxiliar para objetos da classe Fase_2.
+     * Tem por objetivo facilitar a crição/modificação do mesmo.
+     */
+    
+    
+    public Fase_2(){
+        jogador = new Jogador();
+        
+        hud = new HUD(jogador);
+        
+        prepare();
+    }
+    
+    
+    /**
      * Prepara o mundo da Fase 2.
      * Este método é responsável por criar e adicionar todos os atores 
      * (jogador, plataformas, moedas, inimigos, chave, portal e HUD) 
@@ -85,7 +100,11 @@ public class Fase_2 extends Fases
 
         Monstro monstro = new Monstro(jogador);
         addObject(monstro,585,488);
-
+        
+        Monstro monstro2 = new Monstro(jogador);
+        monstro2.mudarTempo(170);
+        addObject(monstro2, 833, 132);
+        
         Moeda moeda = new Moeda(jogador);
         addObject(moeda,533,116);
 
@@ -124,6 +143,8 @@ public class Fase_2 extends Fases
         
         hud = new HUD(jogador);
         addObject(hud, 148, 45);
+        
+        showText("Capítulo 1 - Fase 2", getWidth() / 2, 20);
     }
 
     /**

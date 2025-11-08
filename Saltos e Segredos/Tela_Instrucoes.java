@@ -5,13 +5,16 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (Seu Nome / Joao Fernandes / Maria Clara O Pereira) 
  * @version 1.0
  */
-public class Tela_Instrucoes extends Fases
+public class Tela_Instrucoes extends World
 {
     /**
      * Construtor da Tela_Instrucoes.
      */
     public Tela_Instrucoes()
     {    
+        // Cria um novo mundo com 1150x600 células com um tamanho de célula de 1x1 pixels.
+        super(1150, 600, 1); 
+        
         // A mesma imagem de fundo
         background();
         
@@ -20,8 +23,6 @@ public class Tela_Instrucoes extends Fases
         
         // Adiciona o botão para voltar
         adicionarBotaoVoltar();
-        
-        iniciaTrilha("first.mp3");
     }
     
     /**
@@ -107,8 +108,6 @@ public class Tela_Instrucoes extends Fases
         // Se o botão voltar (ID 99) for clicado
         if (id == 99)
         {
-            paraTrilha();
-            
             // Volta para a Tela Inicial
             Greenfoot.setWorld(new Tela_Inicial());
         }

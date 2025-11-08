@@ -24,11 +24,12 @@ public class Fase_1 extends Fases
         jogador = new Jogador();
         
         //Inicia a trilha sonora da fase.
+        paraTrilha();
         iniciaTrilha("time_for_adventure.mp3");
         
         prepare();
-    }
-
+    }    
+    
     /**
      * Prepara o mundo da Fase 1.
      * Este método é responsável por criar e adicionar todos os atores 
@@ -136,6 +137,8 @@ public class Fase_1 extends Fases
         
         hud = new HUD(jogador);
         addObject(hud, 148, 45);
+        
+        showText("Capítulo 1 - Fase 1", getWidth() / 2, 20);
     }
 
     /**

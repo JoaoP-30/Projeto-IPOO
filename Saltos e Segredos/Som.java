@@ -23,8 +23,6 @@ public class Som extends Actor
     //Referência ao objeto GreenfootSound do último efeito sonoro tocado.
     private GreenfootSound tocaEfeitos;
 
-    private int som;
-
     /**
      * Construtor da classe Som.
      * Inicializa os HashMaps para armazenar as trilhas e efeitos.
@@ -41,8 +39,6 @@ public class Som extends Actor
 
         tocaTrilhas = null;
         tocaEfeitos = null;
-
-        som = 0;
     }
 
     /**
