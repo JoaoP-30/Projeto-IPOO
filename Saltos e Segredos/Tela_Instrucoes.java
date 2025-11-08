@@ -20,6 +20,8 @@ public class Tela_Instrucoes extends Fases
         
         // Adiciona o botão para voltar
         adicionarBotaoVoltar();
+        
+        iniciaTrilha("first.mp3");
     }
     
     /**
@@ -78,8 +80,12 @@ public class Tela_Instrucoes extends Fases
         fundo.drawString("Entrar no portal (sobre ele).", xDescricao, yTexto);
         yTexto += espacoLinha;
         
+        fundo.drawString("Tecla 'P':", xComando, yTexto);
+        fundo.drawString("Desmutar a música.", xDescricao, yTexto);
+        yTexto += espacoLinha;
+        
         fundo.drawString("Tecla 'M':", xComando, yTexto);
-        fundo.drawString("Mutar / Desmutar a música.", xDescricao, yTexto);
+        fundo.drawString("Mutar a música.", xDescricao, yTexto);
     }
     
     /**
@@ -101,6 +107,8 @@ public class Tela_Instrucoes extends Fases
         // Se o botão voltar (ID 99) for clicado
         if (id == 99)
         {
+            paraTrilha();
+            
             // Volta para a Tela Inicial
             Greenfoot.setWorld(new Tela_Inicial());
         }

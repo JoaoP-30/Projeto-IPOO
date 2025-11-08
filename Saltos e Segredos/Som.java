@@ -23,6 +23,8 @@ public class Som extends Actor
     //Referência ao objeto GreenfootSound do último efeito sonoro tocado.
     private GreenfootSound tocaEfeitos;
 
+    private int som;
+
     /**
      * Construtor da classe Som.
      * Inicializa os HashMaps para armazenar as trilhas e efeitos.
@@ -39,6 +41,8 @@ public class Som extends Actor
 
         tocaTrilhas = null;
         tocaEfeitos = null;
+
+        som = 0;
     }
 
     /**
@@ -75,12 +79,17 @@ public class Som extends Actor
 
     /**
      * Verifica os comandos de entrada do usuário (teclado) a cada ciclo.
-     * Atualmente, verifica se a tecla 'm' foi pressionada para chamar {@code mutarTrilha()}.
+     * Verifica se a tecla 'm' foi pressionada para chamar {@code mutarTrilha()} e
+     * se a tecla 'p' foi pressionada para chamar {@code voltarTrilha()}.
      */
 
     private void comandos(){
         if(Greenfoot.isKeyDown("m")){
             mutarTrilha();
+        }
+
+        if(Greenfoot.isKeyDown("p")){                
+            voltarTrilha();
         }
     }
 
@@ -92,7 +101,7 @@ public class Som extends Actor
 
     public void tocarTrilha(String trilha){
         tocaTrilhas = trilhas.get(trilha);
-        
+
         if(tocaTrilhas != null){
             tocaTrilhas.playLoop();
         }
@@ -106,7 +115,7 @@ public class Som extends Actor
 
     public void tocarEfeito(String efeito){
         tocaEfeitos = efeitos.get(efeito);
-        
+
         if(tocaEfeitos != null){
             tocaEfeitos.setVolume(70);
             tocaEfeitos.play();
@@ -116,10 +125,20 @@ public class Som extends Actor
     /**
      * Para a reprodução da trilha sonora atual.
      */
-    
+
     public void mutarTrilha(){
         if(tocaTrilhas != null){
             tocaTrilhas.stop();
+        }
+    }
+
+    /**
+     * Volta a reprodução da ultima trilha sonora tocada.
+     */
+    
+    private void voltarTrilha(){
+        if(tocaTrilhas != null){
+            tocaTrilhas.playLoop();
         }
     }
 }

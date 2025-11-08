@@ -13,7 +13,6 @@ public class Tela_Inicial extends Fases
         desenharTextos();
         adicionarBotoes();
         prepare();
-        paraTrilha();
     }
 
     private void background(){
@@ -30,12 +29,7 @@ public class Tela_Inicial extends Fases
     {
         // O nome do jogo foi implementado direto na imagem de fundo
     }
-
-    public void started(){
-        iniciaTrilha("first.mp3");
-    }
-    
-    
+ 
     /**
      * MUDANÇA: Adiciona os botões empilhados verticalmente no centro.
      */
@@ -76,6 +70,7 @@ public class Tela_Inicial extends Fases
         // Verifica se o botão "Como Jogar?" foi clicado
         else if (id == 3) 
         {
+            paraTrilha();
             // Vai para a tela de instruções que acabamos de criar
             Greenfoot.setWorld(new Tela_Instrucoes());
         }
@@ -87,5 +82,6 @@ public class Tela_Inicial extends Fases
      */
     private void prepare()
     {
+        iniciaTrilha("first.mp3");
     }
 }

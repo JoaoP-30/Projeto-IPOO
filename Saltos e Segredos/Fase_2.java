@@ -133,5 +133,7 @@ public class Fase_2 extends Fases
      */
     
     public void irParaProximaFase(){
+        Fase_3 proximaFase = new Fase_3(jogador);
+        Greenfoot.setWorld(proximaFase);
     }
 }

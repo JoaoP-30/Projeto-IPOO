@@ -23,18 +23,12 @@ public class Fase_1 extends Fases
     {    
         jogador = new Jogador();
         
+        //Inicia a trilha sonora da fase.
+        iniciaTrilha("time_for_adventure.mp3");
+        
         prepare();
     }
 
-    /**
-     * Método chamado automaticamente pelo Greenfoot quando o cenário é iniciado (botão "Run").
-     * Inicia a trilha sonora da fase.
-     */
-    
-    public void started(){
-        iniciaTrilha("time_for_adventure.mp3");
-    }
-    
     /**
      * Prepara o mundo da Fase 1.
      * Este método é responsável por criar e adicionar todos os atores 

@@ -52,6 +52,9 @@ public class Portal extends Actor
                 // Converte (cast) o mundo para Fase_2 e chama o método
                 ((Fase_2) faseAtual).irParaProximaFase();
             }
+            else if(faseAtual instanceof Fase_3){
+                ((Fase_3) faseAtual).irParaProximaFase();
+            }
 
         }
     }
