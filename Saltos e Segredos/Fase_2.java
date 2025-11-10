@@ -26,6 +26,8 @@ public class Fase_2 extends Fases
         
         hud = new HUD(jogador);
         
+        iniciaTrilha("time_for_adventure.mp3");
+        
         prepare();
     }
     
@@ -39,6 +41,8 @@ public class Fase_2 extends Fases
         jogador = new Jogador();
         
         hud = new HUD(jogador);
+        
+        iniciaTrilha("time_for_adventure.mp3");
         
         prepare();
     }
@@ -155,6 +159,9 @@ public class Fase_2 extends Fases
     
     public void irParaProximaFase(){
         Fase_3 proximaFase = new Fase_3(jogador);
+        
+        paraTrilha();
+        
         Greenfoot.setWorld(proximaFase);
     }
 }

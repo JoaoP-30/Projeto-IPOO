@@ -53,7 +53,7 @@ public abstract class Fases extends World
     public void iniciaTrilha(String trilha){
         som.tocarTrilha(trilha);
     }
-
+    
     /**
      * Para a reprodução da trilha sonora que está tocando atualmente.
      * Este método é um "wrapper" que delega a chamada para o objeto Som.

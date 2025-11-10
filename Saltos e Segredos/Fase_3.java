@@ -20,7 +20,10 @@ public class Fase_3 extends Fases
     public Fase_3(Jogador jogador)
     {
         this.jogador = jogador;
-       
+        
+        paraTrilha();
+        iniciaTrilha("time_for_adventure.mp3");
+        
         prepare();
     }
 
@@ -126,6 +129,8 @@ public class Fase_3 extends Fases
     
     public void irParaProximaFase(){
         // AQUI DEVE SER SETADO O TEXTO DO GANHADOR
+        
+        paraTrilha();
         
         showText("YOU WIN", getWidth() / 2, getHeight() / 2 + 100);
         Greenfoot.stop();
