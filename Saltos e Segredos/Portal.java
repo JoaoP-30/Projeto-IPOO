@@ -39,7 +39,7 @@ public class Portal extends Actor
     
     private void entrouNoPortal(){
         Actor jogador = getOneIntersectingObject(Jogador.class);
-
+        
         if(Greenfoot.isKeyDown("c") && jogador != null){
             World faseAtual = getWorld();
             

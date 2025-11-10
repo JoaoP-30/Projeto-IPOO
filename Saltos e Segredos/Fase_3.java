@@ -121,7 +121,7 @@ public class Fase_3 extends Fases
         Cacto cacto = new Cacto(jogador);
         addObject(cacto,127,471);
 
-        Fruta_1 fruta_1 = new Fruta_1();
+        Fruta_1 fruta_1 = new Fruta_1(jogador);
         addObject(fruta_1,40,84);
         
         showText("Capítulo 1 - Fase 3", getWidth() / 2, 20);
@@ -129,10 +129,11 @@ public class Fase_3 extends Fases
     
     public void irParaProximaFase(){
         // AQUI DEVE SER SETADO O TEXTO DO GANHADOR
+        //paraTrilha();
         
-        paraTrilha();
+        Vencedor vencedor = new Vencedor(hud.obterPontuacaoFinal());
+        addObject(vencedor,getWidth() / 2 ,getHeight() / 2 - 30);
         
-        showText("YOU WIN", getWidth() / 2, getHeight() / 2 + 100);
         Greenfoot.stop();
     }
 }

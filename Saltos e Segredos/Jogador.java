@@ -93,6 +93,7 @@ public class Jogador extends Actor
 
     public void act()
     {
+        estaVivo();
         contarTempo();
         tempoInvulneravel();
         movimento();
@@ -121,6 +122,8 @@ public class Jogador extends Actor
             }
         }
         else{
+            receberDano();
+            som.tocarEfeito("hurt.wav");
             setLocation(posY,posX);
         }
     }
@@ -415,5 +418,19 @@ public class Jogador extends Actor
     
     public int obterTempo(){
         return tempo;
+    }
+
+    private void estaVivo(){
+        if(vida < 0){
+            vida = 0;
+            
+            HUD hud = new HUD(this);
+            
+            Perdedor perdedor = new Perdedor(hud.obterPontuacaoFinal() * 25 / 100);
+            
+            getWorld().addObject(perdedor,getWorld().getWidth() / 2 ,getWorld().getHeight() / 2 - 30);
+            
+            Greenfoot.stop();    
+        }
     }
 }

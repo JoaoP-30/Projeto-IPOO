@@ -14,6 +14,8 @@ public class HUD extends Actor {
     private GreenfootImage coracao = new GreenfootImage("coracao.png");
     //Armazena a imagem do ícone de moeda para ser desenhada.
     private GreenfootImage moeda = new GreenfootImage("moeda.png");
+    //Armazena a quantidade de pontos durante uma partida
+    private int pontos;
     
     /**
      * Construtor da classe HUD.
@@ -28,6 +30,8 @@ public class HUD extends Actor {
         coracao = new GreenfootImage("coracao.png");
         moeda = new GreenfootImage("moeda.png");
         
+        pontos = 0;
+        
         // Chama o método de atualização uma vez no construtor 
         // para exibir o HUD inicial assim que ele é criado.
         atualizarHUD();
@@ -39,6 +43,8 @@ public class HUD extends Actor {
 
         coracao = new GreenfootImage("coracao.png");
         moeda = new GreenfootImage("moeda.png");
+        
+        pontos = 0;
         
         // Chama o método de atualização uma vez no construtor 
         // para exibir o HUD inicial assim que ele é criado.
@@ -83,7 +89,36 @@ public class HUD extends Actor {
         
         // --- Desenha o Tempo ---
         img.drawString("Tempo: " + jogador.obterTempo() + "s", 90 , 53);
-
+        
+        //-- Desenha a Pontuação --
+        
+        calcPontos();
+        
+        img.drawString("Pontos: " + pontos, 90,73);
+        
         setImage(img);
+    }
+
+    private void calcPontos(){
+        pontos = (jogador.obterMoedas() * 10) + (jogador.obterVida() * 20);
+    }
+
+    public int obterPontuacaoFinal(){
+        int bonus = 0;
+        
+        if(jogador.obterTempo() <= 60){
+            bonus = 100;
+        }
+        else if(jogador.obterTempo() <= 120){
+            bonus = 50;
+        }
+        else if(jogador.obterTempo() <= 180){
+            bonus = 25;
+        }
+        else {
+            bonus = 5;
+        }
+        
+        return pontos *= (int)(bonus / 2.5);
     }
 }
