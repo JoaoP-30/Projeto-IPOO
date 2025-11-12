@@ -58,8 +58,8 @@ public class Som{
      */
     
     private void preencherTrilhas(){
-        trilhas.put("Intro.wav",new GreenfootSound("Intro.wav"));
-        trilhas.put("Tema1.wav",new GreenfootSound("Tema1.wav"));
+        trilhas.put("Intro.wav",new GreenfootSound("intro.wav"));
+        trilhas.put("Tema1.wav",new GreenfootSound("tema1.wav"));
     }
 
     /**
@@ -85,7 +85,7 @@ public class Som{
 
         if(tocaTrilhas != null){
             tocaTrilhas.setVolume(30);
-            tocaTrilhas.playLoop();
+            tocaTrilhas.play();
         }
     }        
 
