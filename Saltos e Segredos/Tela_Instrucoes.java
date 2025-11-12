@@ -2,7 +2,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
  * Este Mundo mostra as instruções do jogo e um botão "Voltar".
- * @author (Seu Nome / Joao Fernandes / Maria Clara O Pereira) 
+ * @author (Maria Clara O Pereira) 
  * @version 1.0
  */
 public class Tela_Instrucoes extends Fases
@@ -78,7 +78,11 @@ public class Tela_Instrucoes extends Fases
         yTexto += espacoLinha;
         
         fundo.drawString("Tecla 'M':", xComando, yTexto);
-        fundo.drawString("Mutar / Desmutar a música.", xDescricao, yTexto);
+        fundo.drawString("Mutar a música.", xDescricao, yTexto);
+        yTexto += espacoLinha;
+        
+        fundo.drawString("Tecla 'P':", xComando, yTexto);
+        fundo.drawString("Desmutar a música.", xDescricao, yTexto);
     }
     
     /**

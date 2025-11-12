@@ -2,7 +2,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
  * A Tela Inicial do jogo.
- * @author (Seu Nome / Joao Fernandes / Maria Clara O Pereira) 
+ * @author (Maria Clara O Pereira) 
  * @version 1.0
  */
 public class Tela_Inicial extends Fases

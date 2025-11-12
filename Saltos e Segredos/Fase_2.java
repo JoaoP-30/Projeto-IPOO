@@ -24,6 +24,8 @@ public class Fase_2 extends Fases
     {            
         this.jogador = jogador;
             
+        Som.obterInstancia().tocarTrilha("Tema1.wav");
+
         hud = new HUD(jogador);
         
         prepare();
@@ -154,6 +156,8 @@ public class Fase_2 extends Fases
      */
     
     public void irParaProximaFase(){
+        Som.obterInstancia().mutarTrilha();
+        
         Fase_3 proximaFase = new Fase_3(jogador);
             
         Greenfoot.setWorld(proximaFase);

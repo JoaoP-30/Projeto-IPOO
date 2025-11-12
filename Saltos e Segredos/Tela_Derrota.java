@@ -2,7 +2,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
  * Tela de "Game Over" aparece quando a vida do jogador chega a zero.
- * @author (Seu Nome / Joao Fernandes / Maria Clara O Pereira) 
+ * @author (Maria Clara O Pereira) 
  * @version 1.0
  */
 public class Tela_Derrota extends Fases
@@ -32,6 +32,8 @@ public class Tela_Derrota extends Fases
         // Cria um botão para voltar ao menu (id 100)
         PainelJogo btnMenu = new PainelJogo("Voltar ao Menu", 100);
         addObject(btnMenu, 575, 500);
+    
+        Som.obterInstancia().tocarTrilha("Intro.wav");
     }
     
     /**
@@ -41,8 +43,6 @@ public class Tela_Derrota extends Fases
     {
         if (id == 100) // id 100 = Voltar ao Menu
         {
-            Som.obterInstancia().mutarTrilha();
-            Som.obterInstancia().tocarTrilha("Intro.wav");
             Greenfoot.setWorld(new Tela_Inicial());
         }
     }

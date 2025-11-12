@@ -23,6 +23,8 @@ public class Fase_3 extends Fases
     {                
         this.jogador = jogador;
         
+        Som.obterInstancia().tocarTrilha("Tema1.wav");
+
         prepare();
     }
 
@@ -141,9 +143,11 @@ public class Fase_3 extends Fases
      */
     
     public void irParaProximaFase(){
+        Som.obterInstancia().mutarTrilha();
+        
         int pontuacaoFinal = hud.obterPontuacaoFinal();
         int tempoFinal = jogador.obterTempo();
-
+        
         // Muda para a Tela de Vitória, passando a pontuação
         Greenfoot.setWorld(new Tela_Vitoria(pontuacaoFinal, tempoFinal));
     }

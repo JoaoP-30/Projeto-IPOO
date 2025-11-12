@@ -145,6 +145,7 @@ public class Fase_1 extends Fases
      */
     
     public void irParaProximaFase(){
+        Som.obterInstancia().mutarTrilha();
         Fase_2 proximaFase = new Fase_2(jogador);
         Greenfoot.setWorld(proximaFase);
     }

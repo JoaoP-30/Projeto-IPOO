@@ -427,6 +427,8 @@ public class Jogador extends Actor
                 
             HUD hud = new HUD(this);
             
+            Som.obterInstancia().mutarTrilha();
+            
             Greenfoot.setWorld(new Tela_Derrota(hud.obterPontuacaoFinal(), obterTempo()));
         }
     }
