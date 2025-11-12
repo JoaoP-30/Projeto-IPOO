@@ -24,7 +24,6 @@ public class Fase_2 extends Fases
     {            
         this.jogador = jogador;
             
-
         hud = new HUD(jogador);
         
         prepare();
@@ -40,8 +39,6 @@ public class Fase_2 extends Fases
         jogador = new Jogador();
         
         hud = new HUD(jogador);
-        
-        iniciaTrilha("time_for_adventure.mp3");
         
         prepare();
     }

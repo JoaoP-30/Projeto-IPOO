@@ -5,16 +5,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (Seu Nome / Joao Fernandes / Maria Clara O Pereira) 
  * @version 1.0
  */
-public class Tela_Instrucoes extends World
+public class Tela_Instrucoes extends Fases
 {
     /**
      * Construtor da Tela_Instrucoes.
      */
     public Tela_Instrucoes()
     {    
-        // O tamanho do mundo
-        super(1150, 600, 1); 
-        
         // A mesma imagem de fundo
         background();
         

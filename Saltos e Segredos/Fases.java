@@ -12,8 +12,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 public abstract class Fases extends World
 {
-    /** Referência ao objeto Som, responsável por tocar músicas e efeitos sonoros. */
-    private Som som;
+    private Auxilia_Som som;   
     
     /**
      * Construtor da superclasse Fases.
@@ -26,12 +25,11 @@ public abstract class Fases extends World
     {    
         // Cria um novo mundo com 1150x600 células com um tamanho de célula de 1x1 pixels.
         super(1150, 600, 1); 
-    
-        background();
         
-        som = new Som();
-        // Adiciona o ator Som em uma posição fixa (canto superior direito)
+        som = new Auxilia_Som();        
         addObject(som,1129,17);
+        
+        background();
     }
 
     /**
@@ -42,24 +40,5 @@ public abstract class Fases extends World
     private void background(){
         getBackground().setColor(new Color(135, 206, 235));
         getBackground().fill();
-    }
-    
-    /**
-     * Inicia a reprodução de uma trilha sonora em loop.
-     * Este método é um "wrapper" que delega a chamada para o objeto Som.
-     * * @param trilha O nome (String) da trilha sonora a ser tocada.
-     */
-    
-    public void iniciaTrilha(String trilha){
-        som.tocarTrilha(trilha);
-    }
-    
-    /**
-     * Para a reprodução da trilha sonora que está tocando atualmente.
-     * Este método é um "wrapper" que delega a chamada para o objeto Som.
-     */
-    
-    public void paraTrilha(){
-        som.mutarTrilha();
     }
 }

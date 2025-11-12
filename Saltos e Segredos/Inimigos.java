@@ -12,9 +12,7 @@ public abstract class Inimigos extends Actor
 {
     //Referência ao jogador, necessária para aplicar dano.
     private Jogador jogador;
-    //Instância para tocar o som de dano;
-    private Som som;
-
+    
     /**
      * Construtor da classe Inimigos.
      * Armazena a referência do jogador e inicializa o objeto de som.
@@ -23,7 +21,6 @@ public abstract class Inimigos extends Actor
 
     public Inimigos(Jogador jogador){
         this.jogador = jogador;
-        som = new Som();
     }
 
     /**
@@ -51,7 +48,7 @@ public abstract class Inimigos extends Actor
         // Só ataca se houver colisão E o jogador não estiver invulnerável
         if(alvo != null && !jogador.estaInvulneravel()){
             jogador.receberDano();
-            som.tocarEfeito("hurt.wav");
+            Som.obterInstancia().tocarEfeito("hurt.wav");
         }
     }
 }

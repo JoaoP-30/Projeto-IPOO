@@ -1,16 +1,18 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.HashMap;
+import greenfoot.GreenfootSound;
 
 /**
  * Gerencia a reprodução de trilhas sonoras e efeitos sonoros no jogo.
- * Esta classe pré-carrega os sons em HashMaps para acesso rápido e permite
- * tocar, parar e mutar os sons.
- * 
+ * Esta classe usa o padrão Singleton.
  * @author Joao Fernandes 
- * @version Versão 1.0
+ * @version 2.0 (Refatorada para Singleton)
  */
-public class Som extends Actor
-{
+
+public class Som{
+
+    // Unica referencia de som
+    private static Som instancia;
+    
     //Armazena as trilhas sonoras (musicas)
     private HashMap <String,GreenfootSound> trilhas;
 
@@ -22,7 +24,8 @@ public class Som extends Actor
 
     //Referência ao objeto GreenfootSound do último efeito sonoro tocado.
     private GreenfootSound tocaEfeitos;
-
+    
+    
     /**
      * Construtor da classe Som.
      * Inicializa os HashMaps para armazenar as trilhas e efeitos.
@@ -30,7 +33,7 @@ public class Som extends Actor
      * os sons atuais como nulos.
      */
     
-    public Som(){
+    private Som(){
         trilhas = new HashMap<>();
         efeitos = new HashMap<>();
 
@@ -40,26 +43,23 @@ public class Som extends Actor
         tocaTrilhas = null;
         tocaEfeitos = null;
     }
-    
-    
-    /**
-     *  Método chamado automaticamente pelo Greenfoot a cada ciclo de execução.
-     *  Método principal de atuação (loop) da classe Som. 
-     */
-
-    public void act()
-    {
-        comandos();
+   
+    public static Som obterInstancia(){
+        if(instancia == null){
+            instancia = new Som();
+        }
+        
+        return instancia;
     }
-
+    
     /**
      * Pré-carrega as trilhas sonoras (músicas de fundo) no HashMap 'trilhas'.
      * Associa um nome (String) a cada objeto GreenfootSound.
      */
-
+    
     private void preencherTrilhas(){
-        trilhas.put("first.mp3",new GreenfootSound("first.mp3"));
-        trilhas.put("time_for_adventure",new GreenfootSound("time_for_adventure.mp3"));
+        trilhas.put("Intro.wav",new GreenfootSound("Intro.wav"));
+        trilhas.put("Tema1.wav",new GreenfootSound("Tema1.wav"));
     }
 
     /**
@@ -73,24 +73,8 @@ public class Som extends Actor
         efeitos.put("jump.wav", new GreenfootSound("jump.wav"));
         efeitos.put("power_up.wav", new GreenfootSound("power_up.wav"));
     }
-
-    /**
-     * Verifica os comandos de entrada do usuário (teclado) a cada ciclo.
-     * Verifica se a tecla 'm' foi pressionada para chamar {@code mutarTrilha()} e
-     * se a tecla 'p' foi pressionada para chamar {@code voltarTrilha()}.
-     */
-
-    private void comandos(){
-        if(Greenfoot.isKeyDown("m")){
-            mutarTrilha();
-        }
-
-        if(Greenfoot.isKeyDown("p")){                
-            voltarTrilha();
-        }
-    }
-
-    /**
+    
+     /**
      * Toca uma trilha sonoro específica em loop contínuo.
      * Busca a trilha pelo nome no HashMap e inicia sua reprodução em loop.
      * * @param trilha O nome (chave do HashMap) do arquivo de som a ser tocado.
@@ -100,6 +84,7 @@ public class Som extends Actor
         tocaTrilhas = trilhas.get(trilha);
 
         if(tocaTrilhas != null){
+            tocaTrilhas.setVolume(30);
             tocaTrilhas.playLoop();
         }
     }        
@@ -133,9 +118,10 @@ public class Som extends Actor
      * Volta a reprodução da ultima trilha sonora tocada.
      */
     
-    private void voltarTrilha(){
+    public void voltarTrilha(){
         if(tocaTrilhas != null){
             tocaTrilhas.playLoop();
         }
     }
+
 }

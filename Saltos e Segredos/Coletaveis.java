@@ -10,10 +10,7 @@ public abstract class Coletaveis extends Actor
 {
     //Referência ao jogador principal, usada para aplicar os efeitos da coleta (ex: vida, pontos).
     private Jogador jogador;
-    //Instância da classe Som, usada para tocar o efeito sonoro da coleta
-    private Som som;
 
-    
     /**
      * Construtor da classe Coletaveis.
      * Inicializa o coletável, armazenando a referência do jogador e 
@@ -24,7 +21,6 @@ public abstract class Coletaveis extends Actor
     
     public Coletaveis(Jogador jogador){
         this.jogador = jogador; 
-        som = new Som();
     }
     
     /**
@@ -53,7 +49,7 @@ public abstract class Coletaveis extends Actor
                 //jogador.pegouAChave();
             }
             
-            som.tocarEfeito(efeito);
+            Som.obterInstancia().tocarEfeito(efeito);
             getWorld().removeObject(this);
         }
     }

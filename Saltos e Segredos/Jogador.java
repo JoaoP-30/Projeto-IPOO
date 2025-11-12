@@ -40,9 +40,7 @@ public class Jogador extends Actor
     private int tempo;
     //Contador para segundos, quando chega a 60 o 'tempo' é incrementado em 1
     private int cont;
-    //Objeto para gerenciar e tocar efeitos sonoros
-    private Som som;
-
+    
     /**
      * Construtor da classe Jogador.
      * Inicializa os arrays de animação carregando as imagens.
@@ -76,8 +74,6 @@ public class Jogador extends Actor
 
         tempo = 0;
         cont = 0;
-        
-        som = new Som();
     }
 
     /**
@@ -123,7 +119,7 @@ public class Jogador extends Actor
         }
         else{
             receberDano();
-            som.tocarEfeito("hurt.wav");
+            Som.obterInstancia().tocarEfeito("hurt.wav");
             setLocation(posY,posX);
         }
     }
@@ -177,7 +173,7 @@ public class Jogador extends Actor
 
         queda();
 
-        som.tocarEfeito("jump.wav");
+        Som.obterInstancia().tocarEfeito("jump.wav");
     }
 
     /**
@@ -420,6 +416,11 @@ public class Jogador extends Actor
         return tempo;
     }
 
+    /**
+     * Verifica se a quantidade vidas do jogador é menor do que 0,
+     * em caso afirmativo "GAME OVER" é decretado.
+     */
+    
     private void verificarMorte(){
         if(vida < 0){
             vida = 0;

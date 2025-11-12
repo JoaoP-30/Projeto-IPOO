@@ -5,15 +5,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (Seu Nome / Joao Fernandes / Maria Clara O Pereira) 
  * @version 1.0
  */
-public class Tela_Inicial extends World
+public class Tela_Inicial extends Fases
 {
     public Tela_Inicial()
     {    
-        // Cria um novo mundo com 1150x600 células com um tamanho de célula de 1x1 pixels.
-        super(1150, 600, 1); 
-        
         background();
-        desenharTextos();
         adicionarBotoes();
         prepare();
     }
@@ -24,15 +20,6 @@ public class Tela_Inicial extends World
         setBackground(fundoLayout);
     }
 
-    /**
-     * MUDANÇA: Agora este método está VAZIO.
-     * O título agora faz parte da imagem de fundo.
-     */
-    private void desenharTextos()
-    {
-        // O nome do jogo foi implementado direto na imagem de fundo
-    }
- 
     /**
      * MUDANÇA: Adiciona os botões empilhados verticalmente no centro.
      */
@@ -63,6 +50,7 @@ public class Tela_Inicial extends World
     {
         if (id == 1)
         {
+            Som.obterInstancia().mutarTrilha();
             Greenfoot.setWorld(new Fase_1());
         }
         else if (id == 2)
@@ -83,6 +71,9 @@ public class Tela_Inicial extends World
      */
     private void prepare()
     {
-       
+    }
+
+    public void started(){
+        Som.obterInstancia().tocarTrilha("Intro.wav");
     }
 }

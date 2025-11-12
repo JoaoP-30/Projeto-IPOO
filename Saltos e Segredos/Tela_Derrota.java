@@ -5,15 +5,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (Seu Nome / Joao Fernandes / Maria Clara O Pereira) 
  * @version 1.0
  */
-public class Tela_Derrota extends World
+public class Tela_Derrota extends Fases
 {
     /**
      * Construtor da Tela_Derrota.
      */
     public Tela_Derrota(int pontos, int tempo)
-    {    
-        super(1150, 600, 1); 
-        
+    {     
         // Usa o mesmo fundo do menu instrucoes
         GreenfootImage fundo = new GreenfootImage("como_jogar.png");
         fundo.scale(getWidth(), getHeight());
@@ -43,6 +41,8 @@ public class Tela_Derrota extends World
     {
         if (id == 100) // id 100 = Voltar ao Menu
         {
+            Som.obterInstancia().mutarTrilha();
+            Som.obterInstancia().tocarTrilha("Intro.wav");
             Greenfoot.setWorld(new Tela_Inicial());
         }
     }
