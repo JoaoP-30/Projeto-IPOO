@@ -1,10 +1,11 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Fase_3 here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Representa a terceira fase (nível) do jogo.
+ * Esta classe é responsável por inicializar todos os objetos, plataformas,
+ * inimigos e itens colecionáveis específicos da Fase 3.
+ * @author Joao Fernandes 
+ * @version 1.0
  */
 public class Fase_3 extends Fases
 {
@@ -14,19 +15,21 @@ public class Fase_3 extends Fases
     private HUD hud;
     
     /**
-     * Constructor for objects of class Fase_3.
-     * 
-     */
+     * Construtor para objetos da classe Fase_3.
+     * Recebe o objeto Jogador da fase anterior para manter seu estado (vida, moedas, etc.).
+     * * @param jogador O objeto Jogador que vem da fase anterior.
+     */    
     public Fase_3(Jogador jogador)
-    {
+    {                
         this.jogador = jogador;
-        
-        paraTrilha();
-        iniciaTrilha("time_for_adventure.mp3");
         
         prepare();
     }
 
+    /**
+     * Construtor auxiliar para objetos da classe Fase_2.
+     * Tem por objetivo facilitar a crição/modificação do mesmo.
+     */
     
     public Fase_3(){
         jogador = new Jogador();
@@ -34,10 +37,14 @@ public class Fase_3 extends Fases
         prepare();
     }
     
-
+    /**
+     * Prepara o mundo da Fase 3.
+     * Este método é responsável por criar e adicionar todos os atores 
+     * (jogador, plataformas, moedas, inimigos, chave, portal e HUD) 
+     * em suas posições iniciais no mundo.
+     */
+    
     private void prepare(){
-        //addObject(jogador, getWidth() / 2, getHeight() / 3);
-
         Chao chao = new Chao(200, 100);
         addObject(chao,1068,550);
 
@@ -127,13 +134,17 @@ public class Fase_3 extends Fases
         showText("Capítulo 1 - Fase 3", getWidth() / 2, 20);
     }
     
+    /**
+     * Define a transição para a próxima fase.
+     * Cria uma instância da Tela_Vitoria, passando a pontução e o tempo final,
+     * e define o mundo Greenfoot para esta nova "fase".
+     */
+    
     public void irParaProximaFase(){
-        // AQUI DEVE SER SETADO O TEXTO DO GANHADOR
-        //paraTrilha();
-        
-        Vencedor vencedor = new Vencedor(hud.obterPontuacaoFinal());
-        addObject(vencedor,getWidth() / 2 ,getHeight() / 2 - 30);
-        
-        Greenfoot.stop();
+        int pontuacaoFinal = hud.obterPontuacaoFinal();
+        int tempoFinal = jogador.obterTempo();
+
+        // Muda para a Tela de Vitória, passando a pontuação
+        Greenfoot.setWorld(new Tela_Vitoria(pontuacaoFinal, tempoFinal));
     }
 }

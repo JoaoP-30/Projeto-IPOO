@@ -7,8 +7,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Tela_Inicial extends World
 {
-    private static GreenfootSound trilha;
-    
     public Tela_Inicial()
     {    
         // Cria um novo mundo com 1150x600 células com um tamanho de célula de 1x1 pixels.
@@ -65,7 +63,6 @@ public class Tela_Inicial extends World
     {
         if (id == 1)
         {
-            trilha.stop();
             Greenfoot.setWorld(new Fase_1());
         }
         else if (id == 2)
@@ -86,11 +83,6 @@ public class Tela_Inicial extends World
      */
     private void prepare()
     {
-        
-    }
-
-    public void started(){
-        trilha = new GreenfootSound("first.mp3");
-        trilha.playLoop();
+       
     }
 }

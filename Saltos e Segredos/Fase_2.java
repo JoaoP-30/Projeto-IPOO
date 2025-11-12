@@ -13,7 +13,7 @@ public class Fase_2 extends Fases
     private Jogador jogador;
     //Instância da classe HUD, usada para exibir as informações do jogador
     private HUD hud;
-    
+        
     /**
      * Construtor para objetos da classe Fase_2.
      * Recebe o objeto Jogador da fase anterior para manter seu estado (vida, moedas, etc.).
@@ -21,12 +21,11 @@ public class Fase_2 extends Fases
      */    
     
     public Fase_2(Jogador jogador)
-    {    
+    {            
         this.jogador = jogador;
-        
+            
+
         hud = new HUD(jogador);
-        
-        iniciaTrilha("time_for_adventure.mp3");
         
         prepare();
     }
@@ -37,7 +36,7 @@ public class Fase_2 extends Fases
      */
     
     
-    public Fase_2(){
+    public Fase_2(){    
         jogador = new Jogador();
         
         hud = new HUD(jogador);
@@ -159,9 +158,7 @@ public class Fase_2 extends Fases
     
     public void irParaProximaFase(){
         Fase_3 proximaFase = new Fase_3(jogador);
-        
-        paraTrilha();
-        
+            
         Greenfoot.setWorld(proximaFase);
     }
 }

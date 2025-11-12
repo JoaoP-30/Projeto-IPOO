@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class Som extends Actor
 {
     //Armazena as trilhas sonoras (musicas)
-    private HashMap <String, GreenfootSound> trilhas;
+    private HashMap <String,GreenfootSound> trilhas;
 
     //Armazena os efeitos sonoros
     private HashMap <String, GreenfootSound> efeitos;
@@ -29,7 +29,7 @@ public class Som extends Actor
      * Chama métodos para pré-carregar os arquivos de som e define
      * os sons atuais como nulos.
      */
-
+    
     public Som(){
         trilhas = new HashMap<>();
         efeitos = new HashMap<>();
@@ -40,7 +40,8 @@ public class Som extends Actor
         tocaTrilhas = null;
         tocaEfeitos = null;
     }
-
+    
+    
     /**
      *  Método chamado automaticamente pelo Greenfoot a cada ciclo de execução.
      *  Método principal de atuação (loop) da classe Som. 
@@ -57,8 +58,8 @@ public class Som extends Actor
      */
 
     private void preencherTrilhas(){
-        trilhas.put("first.mp3", new GreenfootSound("first.mp3"));
-        trilhas.put("time_for_adventure.mp3", new GreenfootSound("time_for_adventure.mp3"));
+        trilhas.put("first.mp3",new GreenfootSound("first.mp3"));
+        trilhas.put("time_for_adventure",new GreenfootSound("time_for_adventure.mp3"));
     }
 
     /**

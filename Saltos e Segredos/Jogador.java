@@ -93,7 +93,7 @@ public class Jogador extends Actor
 
     public void act()
     {
-        estaVivo();
+        verificarMorte();
         contarTempo();
         tempoInvulneravel();
         movimento();
@@ -420,17 +420,13 @@ public class Jogador extends Actor
         return tempo;
     }
 
-    private void estaVivo(){
+    private void verificarMorte(){
         if(vida < 0){
             vida = 0;
-            
+                
             HUD hud = new HUD(this);
             
-            Perdedor perdedor = new Perdedor(hud.obterPontuacaoFinal() * 25 / 100);
-            
-            getWorld().addObject(perdedor,getWorld().getWidth() / 2 ,getWorld().getHeight() / 2 - 30);
-            
-            Greenfoot.stop();    
+            Greenfoot.setWorld(new Tela_Derrota(hud.obterPontuacaoFinal(), obterTempo()));
         }
     }
 }

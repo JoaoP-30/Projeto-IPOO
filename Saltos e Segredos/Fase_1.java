@@ -23,9 +23,6 @@ public class Fase_1 extends Fases
     {    
         jogador = new Jogador();
         
-        //Inicia a trilha sonora da fase.
-        iniciaTrilha("time_for_adventure.mp3");
-        
         prepare();
     }    
     
@@ -148,7 +145,6 @@ public class Fase_1 extends Fases
     
     public void irParaProximaFase(){
         Fase_2 proximaFase = new Fase_2(jogador);
-        paraTrilha();
         Greenfoot.setWorld(proximaFase);
     }
 }

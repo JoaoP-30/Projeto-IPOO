@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Este Mundo (World) mostra as instruções do jogo e um botão "Voltar".
+ * Este Mundo mostra as instruções do jogo e um botão "Voltar".
  * @author (Seu Nome / Joao Fernandes / Maria Clara O Pereira) 
  * @version 1.0
  */
@@ -12,7 +12,7 @@ public class Tela_Instrucoes extends World
      */
     public Tela_Instrucoes()
     {    
-        // Cria um novo mundo com 1150x600 células com um tamanho de célula de 1x1 pixels.
+        // O tamanho do mundo
         super(1150, 600, 1); 
         
         // A mesma imagem de fundo
@@ -26,7 +26,7 @@ public class Tela_Instrucoes extends World
     }
     
     /**
-     * Define o mesmo fundo da tela inicial.
+     * Define o fundo da imagem parecido com a Tela Inicial.
      */
     private void background(){
         // Imagem de fundo
@@ -36,8 +36,7 @@ public class Tela_Instrucoes extends World
     }
     
     /**
-     * Desenha os textos do tutorial "bonitinho".
-     * (Versão 2.0 - Formatação ajustada)
+     * Imprime os textos do tutorial.
      */
     private void desenharTutorial()
     {
@@ -81,12 +80,8 @@ public class Tela_Instrucoes extends World
         fundo.drawString("Entrar no portal (sobre ele).", xDescricao, yTexto);
         yTexto += espacoLinha;
         
-        fundo.drawString("Tecla 'P':", xComando, yTexto);
-        fundo.drawString("Desmutar a música.", xDescricao, yTexto);
-        yTexto += espacoLinha;
-        
         fundo.drawString("Tecla 'M':", xComando, yTexto);
-        fundo.drawString("Mutar a música.", xDescricao, yTexto);
+        fundo.drawString("Mutar / Desmutar a música.", xDescricao, yTexto);
     }
     
     /**

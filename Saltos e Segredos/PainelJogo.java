@@ -44,25 +44,31 @@ public class PainelJogo extends Actor
 
     public void act()
     {
-        // Verifica se o mouse clicou
+        // verifica se o mouse clicou
         if (Greenfoot.mouseClicked(this))
         {
-            // Pega uma referência do mundo onde o botão está
-            World mundo = getWorld();
+            World mundo = getWorld(); // referencia onde o botao tá
             
-            // Verifica em qual mundo o botão está
             if (mundo instanceof Tela_Inicial)
             {
-                // Se estiver na Tela_Inicial, chama o método dela
+                // Se estiver na tela inicial
                 ((Tela_Inicial) mundo).botaoClicado(id);
             }
             else if (mundo instanceof Tela_Instrucoes)
             {
-                // Se estiver na Tela_Instrucoes, chama o método dela
+                // Caso esteja na tela de instrucoes
                 ((Tela_Instrucoes) mundo).botaoClicado(id);
             }
-            
-            // (opcao de else caso a gente quiser criar mais mundos)
+            else if (mundo instanceof Tela_Derrota)
+            {
+                // Caso esteja na tela de derrota
+                ((Tela_Derrota) mundo).botaoClicado(id);
+            }
+            else if (mundo instanceof Tela_Vitoria)
+            {
+                // Caso esteja na tela de vitoria
+                ((Tela_Vitoria) mundo).botaoClicado(id);
+            }
         }
     }
 }
