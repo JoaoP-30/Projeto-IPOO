@@ -72,6 +72,7 @@ public class Som{
         efeitos.put("hurt.wav", new GreenfootSound("hurt.wav"));
         efeitos.put("jump.wav", new GreenfootSound("jump.wav"));
         efeitos.put("power_up.wav", new GreenfootSound("power_up.wav"));
+        efeitos.put("explosion.wav", new GreenfootSound("explosion.wav"));
     }
     
      /**
