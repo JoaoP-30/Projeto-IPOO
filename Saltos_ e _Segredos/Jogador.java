@@ -1,5 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
+
 /**
  * Representa o jogador principal no jogo.
  * Esta classe controla o movimento (horizontal e vertical), as animações e estado (como vida, moedas)
@@ -40,7 +41,11 @@ public class Jogador extends Actor
     private int tempo;
     //Contador para segundos, quando chega a 60 o 'tempo' é incrementado em 1
     private int cont;
-    
+    //Direção que o ataque vai ser executado
+    private int direcaoAtaque;
+    //Tempo de espera para executar o próximo ataque
+    private int tempoDeAtaque;
+     
     /**
      * Construtor da classe Jogador.
      * Inicializa os arrays de animação carregando as imagens.
@@ -74,23 +79,29 @@ public class Jogador extends Actor
 
         tempo = 0;
         cont = 0;
+        
+        direcaoAtaque = -1;
+        tempoDeAtaque = 60;
     }
 
     /**
      * Método chamado automaticamente pelo Greenfoot a cada ciclo de execução.
      * Método principal de atuação (loop) da classe Jogador.
     * Ele gerencia o estado do jogador chamando:
-     * 1. {@link #contarTempo()} - Incrementa o relógio do jogo.
-     * 2. {@link #tempoInvulneravel()} - Decrementa o timer de invulnerabilidade.
-     * 3. {@link #movimento()} - Verifica entradas do teclado
-     * 4. {@link #verificaQueda()} - Aplica gravidade se estiver no ar.
-     * 5. {@link #teto()} - Verifica colisão com o teto
+     * 1. {@link #verificarMorte()} - Verifica se o status de vida do jogador. 
+     * 2. {@link #contarTempo()} - Incrementa o relógio do jogo.
+     * 3. {@link #ataque()} - Regula se o ataque pode ser executado.
+     * 4. {@link #tempoInvulneravel()} - Decrementa o timer de invulnerabilidade.
+     * 5. {@link #movimento()} - Verifica entradas do teclado.
+     * 6. {@link #verificaQueda()} - Aplica gravidade se estiver no ar.
+     * 7. {@link #teto()} - Verifica colisão com o teto
      */
 
     public void act()
     {
         verificarMorte();
         contarTempo();
+        ataque();
         tempoInvulneravel();
         movimento();
         verificaQueda();
@@ -109,9 +120,11 @@ public class Jogador extends Actor
         if(!estaNoFundo()){    
             if(Greenfoot.isKeyDown("right")){
                 moverDireita();
+                direcaoAtaque = 1;
             }
             if(Greenfoot.isKeyDown("left")){
                 moverEsquerda();
+                direcaoAtaque = 0;
             }
             if(Greenfoot.isKeyDown("up") && !estaPulando){
                 salto();
@@ -422,14 +435,47 @@ public class Jogador extends Actor
      */
     
     private void verificarMorte(){
-        if(vida < 0){
-            vida = 0;
-                
+        if(vida <= 0){
             HUD hud = new HUD(this);
             
             Som.obterInstancia().mutarTrilha();
             
-            Greenfoot.setWorld(new Tela_Derrota(hud.obterPontuacaoFinal(), obterTempo()));
+            Greenfoot.setWorld(new Tela_Derrota(hud.obterPontuacaoFinal(true), obterTempo()));
         }
+    }
+
+    /***
+     * Retorna a posição do jogador no eixo X.
+     */
+
+    public int obterPosX(){
+        return getX();
+    }
+
+    /***
+     * Retorna a posição do jogador no eixo Y.
+     */
+
+    public int obterPosY(){
+        return getY();
+    }
+
+    public boolean ataque()
+    {
+        tempoDeAtaque--;
+        
+        if(Greenfoot.isKeyDown("space") && tempoDeAtaque <= 0 && direcaoAtaque ==1)
+        {
+            getWorld().addObject(new AtaqueDireito(), getX(), getY());
+            tempoDeAtaque = 60;
+            return true;
+        }
+        if(Greenfoot.isKeyDown("space") && tempoDeAtaque <= 0 && direcaoAtaque ==0)
+        {
+            getWorld().addObject(new AtaqueEsquerdo(), getX(), getY());
+            tempoDeAtaque = 60;
+            return true;
+        }
+        return false;
     }
 }

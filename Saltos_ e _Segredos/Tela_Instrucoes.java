@@ -42,22 +42,13 @@ public class Tela_Instrucoes extends Fases
         // Título da Página
         fundo.setColor(Color.WHITE); 
         fundo.setFont(new Font("Comic Sans MS", true, false, 40)); 
-        fundo.drawString("--- Como Jogar ---", 370, 100);
-        
-        // Texto de introdução
-        fundo.setColor(Color.WHITE); 
-        fundo.setFont(new Font("Comic Sans MS", true, false, 24)); // true = NEGRITO
+        fundo.drawString("--- Como Jogar ---", 400, 100);
         
         int xTexto = 250; // Posição horizontal
         int yTexto = 200; // Posição vertical
         int espacoLinha = 35; // Espaço entre as linhas
         
-        fundo.drawString("Sua missão é explorar este mundo, desviar dos monstros", xTexto, yTexto);
-        yTexto += espacoLinha;
-        fundo.drawString("e coletar todos os itens para encontrar a saída!", xTexto, yTexto);
-        
-        yTexto += espacoLinha * 2;
-
+       
         // Frase de comandos
         fundo.setFont(new Font("Verdana", false, false, 22));
         fundo.setColor(Color.WHITE); 
@@ -65,12 +56,12 @@ public class Tela_Instrucoes extends Fases
         int xComando = xTexto + 20;
         int xDescricao = xComando + 350;
         
-        fundo.drawString("Setas Esquerda/Direita:", xComando, yTexto);
+        fundo.drawString("Setas Esquerda/Direita/Cima:", xComando, yTexto);
         fundo.drawString("Movem o personagem.", xDescricao, yTexto);
         yTexto += espacoLinha;
         
         fundo.drawString("Seta Cima:", xComando, yTexto);
-        fundo.drawString("Pular.", xDescricao, yTexto);
+        fundo.drawString("Executa o salto.", xDescricao, yTexto);
         yTexto += espacoLinha;
         
         fundo.drawString("Tecla 'C':", xComando, yTexto);
@@ -83,6 +74,10 @@ public class Tela_Instrucoes extends Fases
         
         fundo.drawString("Tecla 'P':", xComando, yTexto);
         fundo.drawString("Desmutar a música.", xDescricao, yTexto);
+        yTexto += espacoLinha;
+        
+        fundo.drawString("Tecla 'ESPAÇO':", xComando, yTexto);
+        fundo.drawString("Atacar o inimigo.", xDescricao, yTexto);
     }
     
     /**
@@ -92,7 +87,7 @@ public class Tela_Instrucoes extends Fases
     {
         // Usamos um id que não conflite com os id´s 1 e 2
         PainelJogo btnVoltar = new PainelJogo("Voltar", 99);
-        addObject(btnVoltar, 575, 500); // Centralizado na parte inferior
+        addObject(btnVoltar, 565, 500); // Centralizado na parte inferior
     }
     
     /**
