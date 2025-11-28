@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * A classe HUD (Heads-Up Display) é um Ator responsável por exibir 
+ * A classe HUD é um Ator responsável por exibir 
  * informações vitais do jogo na tela, como a vida do jogador, 
  * a contagem de moedas e o tempo decorrido.
  * * Ele atualiza essas informações a cada ciclo do jogo (frame).
@@ -16,6 +16,10 @@ public class HUD extends Actor {
     private GreenfootImage moeda = new GreenfootImage("moeda.png");
     //Armazena a quantidade de pontos durante uma partida
     private int pontos;
+    
+    private int inimigosMortos;
+    
+    private int pontosFaseAtual;
     
     /**
      * Construtor da classe HUD.
@@ -32,6 +36,10 @@ public class HUD extends Actor {
         
         pontos = 0;
         
+        inimigosMortos = 0;
+        
+        pontosFaseAtual = 0;
+        
         // Chama o método de atualização uma vez no construtor 
         // para exibir o HUD inicial assim que ele é criado.
         atualizarHUD();
@@ -46,11 +54,12 @@ public class HUD extends Actor {
         
         pontos = 0;
         
+        pontosFaseAtual = 0;
+        
         // Chama o método de atualização uma vez no construtor 
         // para exibir o HUD inicial assim que ele é criado.
         atualizarHUD();
     }
-    
     
     
     /**
@@ -100,25 +109,38 @@ public class HUD extends Actor {
     }
 
     private void calcPontos(){
-        pontos = (jogador.obterMoedas() * 10) + (jogador.obterVida() * 20);
+        pontos = (jogador.obterMoedas() * 10) + (jogador.obterVida() * 20) + (inimigosMortos * 30);
+        pontosFaseAtual = (jogador.obterMoedas() * 10) + (jogador.obterVida() * 20) + (inimigosMortos * 30);
     }
 
-    public int obterPontuacaoFinal(){
-        int bonus = 0;
+    public int obterPontuacaoFinal(boolean estaVivo){
+        if(!estaVivo){
+            int bonus = 0;
         
-        if(jogador.obterTempo() <= 60){
-            bonus = 100;
+            if(jogador.obterTempo() <= 120){
+                bonus = 100;
+            }
+            else if(jogador.obterTempo() <= 180){
+                bonus = 50;
+            }
+            else if(jogador.obterTempo() <= 300){
+                bonus = 25;
+            }
+            else {
+                bonus = 5;
+            }
+            
+            return pontos *= (int)(bonus / 2.5);
         }
-        else if(jogador.obterTempo() <= 120){
-            bonus = 50;
-        }
-        else if(jogador.obterTempo() <= 180){
-            bonus = 25;
-        }
-        else {
-            bonus = 5;
-        }
-        
-        return pontos *= (int)(bonus / 2.5);
+    
+        return pontos;
+    }
+
+    public void pontuarMorteInimigo(){
+        inimigosMortos++;
+    }
+ 
+    public int obterPontos(){
+        return pontos;
     }
 }
