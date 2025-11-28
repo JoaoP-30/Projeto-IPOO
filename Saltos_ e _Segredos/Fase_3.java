@@ -143,12 +143,13 @@ public class Fase_3 extends Fases
      */
     
     public void irParaProximaFase(){
+        Pontuacao.obterInstancia().adicionarPontuacao("Fase_3",hud.obterPontos());
+        Pontuacao.obterInstancia().adicionarPontuacao("Fase_4",4);
+        Pontuacao.obterInstancia().adicionarPontuacao("Fase_5",5);
+        
         Som.obterInstancia().mutarTrilha();
         
-        int pontuacaoFinal = hud.obterPontuacaoFinal();
-        int tempoFinal = jogador.obterTempo();
-        
         // Muda para a Tela de Vitória, passando a pontuação
-        Greenfoot.setWorld(new Tela_Vitoria(pontuacaoFinal, tempoFinal));
+        Greenfoot.setWorld(new Fase_6(jogador));
     }
 }

@@ -156,6 +156,8 @@ public class Fase_2 extends Fases
      */
     
     public void irParaProximaFase(){
+        Pontuacao.obterInstancia().adicionarPontuacao("Fase_2",hud.obterPontos());
+        
         Som.obterInstancia().mutarTrilha();
         
         Fase_3 proximaFase = new Fase_3(jogador);

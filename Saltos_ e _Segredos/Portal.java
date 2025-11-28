@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.List;
 
 /**
  * Representa um portal de transição de fase.
@@ -40,7 +41,9 @@ public class Portal extends Actor
     private void entrouNoPortal(){
         Actor jogador = getOneIntersectingObject(Jogador.class);
         
-        if(Greenfoot.isKeyDown("c") && jogador != null){
+        List <Chave> chaves = getWorld().getObjects(Chave.class);
+        
+        if(Greenfoot.isKeyDown("c") && jogador != null && chaves.size() <= 0){
             World faseAtual = getWorld();
             
             // Verifica o tipo do mundo atual para chamar o método correto
@@ -54,6 +57,9 @@ public class Portal extends Actor
             }
             else if(faseAtual instanceof Fase_3){
                 ((Fase_3) faseAtual).irParaProximaFase();
+            }
+            else if(faseAtual instanceof Fase_6){
+                ((Fase_6) faseAtual).irParaProximaFase();
             }
 
         }

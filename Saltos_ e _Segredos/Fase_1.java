@@ -145,8 +145,12 @@ public class Fase_1 extends Fases
      */
     
     public void irParaProximaFase(){
+        Pontuacao.obterInstancia().adicionarPontuacao("Fase_1",hud.obterPontos());
+        
         Som.obterInstancia().mutarTrilha();
+        
         Fase_2 proximaFase = new Fase_2(jogador);
+        
         Greenfoot.setWorld(proximaFase);
     }
 }

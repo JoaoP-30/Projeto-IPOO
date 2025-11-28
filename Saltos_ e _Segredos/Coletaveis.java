@@ -48,6 +48,9 @@ public abstract class Coletaveis extends Actor
             else if(acao == 3){
                 //jogador.pegouAChave();
             }
+            else if (acao == 4){
+                //jogador.ativarEsfera();
+            }
             
             Som.obterInstancia().tocarEfeito(efeito);
             getWorld().removeObject(this);
