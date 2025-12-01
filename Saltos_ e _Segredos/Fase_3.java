@@ -103,16 +103,16 @@ public class Fase_3 extends Fases
         hud = new HUD(jogador);
         addObject(hud, 148, 45);       
 
-        Moeda moeda = new Moeda();
+        Moeda moeda = new Moeda(jogador);
         addObject(moeda,1117,83);
 
-        Moeda moeda2 = new Moeda();
+        Moeda moeda2 = new Moeda(jogador);
         addObject(moeda2,1073,83);
 
-        Moeda moeda3 = new Moeda();
+        Moeda moeda3 = new Moeda(jogador);
         addObject(moeda3,1117,124);
 
-        Moeda moeda4 = new Moeda();
+        Moeda moeda4 = new Moeda(jogador);
         addObject(moeda4,1073, 124);
 
         Chao chao5 = new Chao(40, 40);
@@ -133,7 +133,7 @@ public class Fase_3 extends Fases
         Fruta_1 fruta_1 = new Fruta_1(jogador);
         addObject(fruta_1,40,84);
         
-        showText("Capítulo 1 - Fase 3", getWidth() / 2, 20);
+        showText("Fase 3 - O Fim Está Próximo", getWidth() / 2, 20);
     }
     
     /**
@@ -144,12 +144,10 @@ public class Fase_3 extends Fases
     
     public void irParaProximaFase(){
         Pontuacao.obterInstancia().adicionarPontuacao("Fase_3",hud.obterPontos());
-        Pontuacao.obterInstancia().adicionarPontuacao("Fase_4",4);
-        Pontuacao.obterInstancia().adicionarPontuacao("Fase_5",5);
         
         Som.obterInstancia().mutarTrilha();
         
         // Muda para a Tela de Vitória, passando a pontuação
-        Greenfoot.setWorld(new Fase_6(jogador));
+        Greenfoot.setWorld(new Fase_4(jogador));
     }
 }

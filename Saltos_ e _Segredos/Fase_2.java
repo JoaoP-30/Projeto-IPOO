@@ -146,7 +146,7 @@ public class Fase_2 extends Fases
         hud = new HUD(jogador);
         addObject(hud, 148, 45);
         
-        showText("Capítulo 1 - Fase 2", getWidth() / 2, 20);
+        showText("Fase 2 - Explorando Novos Horizontes", getWidth() / 2, 20);
     }
 
     /**

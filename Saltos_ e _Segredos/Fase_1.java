@@ -33,7 +33,7 @@ public class Fase_1 extends Fases
      * (jogador, plataformas, moedas, inimigos, chave, portal e HUD) 
      * em suas posições iniciais no mundo.
      */
-    
+
     private void prepare(){
         Chao chao = new Chao(230, 80);
         addObject(chao,115,562);
@@ -46,16 +46,16 @@ public class Fase_1 extends Fases
 
         Chao chao4 = new Chao(230, 80);
         addObject(chao4, 802, 562);
-        
+
         Chao_Falso chao5 = new Chao_Falso(80, 80);
         addObject(chao5,956,562);
 
         Chao chao6 = new Chao(160, 80);
         addObject(chao6, 1076, 562);
-        
+
         addObject(jogador,24,503);
         jogador.inserirPosicaoInicial(24, 503);
-        
+
         Moeda moeda = new Moeda(jogador);
         addObject(moeda,382,418);
 
@@ -64,7 +64,7 @@ public class Fase_1 extends Fases
 
         Moeda moeda3 = new Moeda(jogador);
         addObject(moeda3,542,418);
-    
+
         Cacto cacto = new Cacto(jogador);
         addObject(cacto,830,493);
 
@@ -131,11 +131,11 @@ public class Fase_1 extends Fases
 
         Portal portal = new Portal();
         addObject(portal,21,104);
-        
+
         hud = new HUD(jogador);
         addObject(hud, 148, 45);
-        
-        showText("Capítulo 1 - Fase 1", getWidth() / 2, 20);
+
+        showText("Fase 1 - O Início", getWidth() / 2, 20);
     }
 
     /**
