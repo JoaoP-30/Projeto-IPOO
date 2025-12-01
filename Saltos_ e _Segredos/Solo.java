@@ -21,6 +21,16 @@ public abstract class Solo extends Actor
     }
 
     /**
+     * Construtor para objeto da superclasse Solo.
+     * Este é usado pelas subclasses que não necessitam
+     * redimensionar sua altura/largura.
+     */
+    
+    public Solo(){
+    
+    }
+    
+    /**
      *  Método chamado automaticamente pelo Greenfoot a cada ciclo de execução.
      *  Método principal de atuação (loop) da classe Solo. 
      */
