@@ -1,12 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
-
 /**
  * Representa o jogador principal no jogo.
  * Esta classe controla o movimento (horizontal e vertical), as animações e estado (como vida, moedas)
  * e as interações de físcia (salto, gravidade) do personagem controlado pelo usuário.
- * @author Joao Fernandes 
- * @version 1.1 
+ * @version 3.0
  */
 
 public class Jogador extends Actor
@@ -25,7 +23,7 @@ public class Jogador extends Actor
     private int tempoInvulneravel;
     //Velocidade de movimento horizontal do jogador
     private int velMovimento;
-    //Indica se o jogador está no ar(pulando ou caindo)s 
+    //Indica se o jogador está no ar (pulando ou caindo)
     private boolean estaPulando;
     //Velocidade vertical atual do jogador
     private int velVertical;
@@ -45,7 +43,7 @@ public class Jogador extends Actor
     private int direcaoAtaque;
     //Tempo de espera para executar o próximo ataque
     private int tempoDeAtaque;
-     
+
     /**
      * Construtor da classe Jogador.
      * Inicializa os arrays de animação carregando as imagens.
@@ -79,7 +77,7 @@ public class Jogador extends Actor
 
         tempo = 0;
         cont = 0;
-        
+
         direcaoAtaque = -1;
         tempoDeAtaque = 60;
     }
@@ -87,7 +85,7 @@ public class Jogador extends Actor
     /**
      * Método chamado automaticamente pelo Greenfoot a cada ciclo de execução.
      * Método principal de atuação (loop) da classe Jogador.
-    * Ele gerencia o estado do jogador chamando:
+     * Ele gerencia o estado do jogador chamando:
      * 1. {@link #verificarMorte()} - Verifica se o status de vida do jogador. 
      * 2. {@link #contarTempo()} - Incrementa o relógio do jogo.
      * 3. {@link #ataque()} - Regula se o ataque pode ser executado.
@@ -118,11 +116,11 @@ public class Jogador extends Actor
 
     private void movimento(){
         if(!estaNoFundo()){    
-            if(Greenfoot.isKeyDown("right")){
+            if(Greenfoot.isKeyDown("right") && !verficaObstaculoAFrente()){
                 moverDireita();
                 direcaoAtaque = 1;
             }
-            if(Greenfoot.isKeyDown("left")){
+            if(Greenfoot.isKeyDown("left") && !verficaObstaculoAtras()){
                 moverEsquerda();
                 direcaoAtaque = 0;
             }
@@ -337,7 +335,7 @@ public class Jogador extends Actor
      * Reduz a 'vida' em 1 e reinicia o 'tempoInvulneravel' para 180 ciclos (3 segundos).
      * Chamado geralmente por um 'Inimigo'.
      */
-    
+
     public void receberDano(){
         vida--;
         tempoInvulneravel = 180;
@@ -347,7 +345,7 @@ public class Jogador extends Actor
      * Contagem regressiva do tempo de invulnerabilidade.
      * Chamado a cada 'act', reduz o contador 'tempoInvulneravel' até que chegue a 0.
      */
-    
+
     private void tempoInvulneravel(){
         if(tempoInvulneravel > 0){
             tempoInvulneravel--;
@@ -359,16 +357,16 @@ public class Jogador extends Actor
      * Usado por inimigos para saber se podem aplicar dano.
      * @return true se 'tempoInvulneravel' for maior que 0, false caso contrário.
      */
-    
+
     public boolean estaInvulneravel(){
         return tempoInvulneravel != 0;
     }
-    
+
     /**
      * Aumenta a vida do jogador em 1.
      * Geralmente chamado por um item coletável (ex: Coração).
      */
-    
+
     public void aumentarVida(){
         vida++;
     }
@@ -378,7 +376,7 @@ public class Jogador extends Actor
      * Usado pelo 'Mundo' para exibir na tela.
      * @return O valor inteiro da vida atual.
      */
-    
+
     public int obterVida(){
         return vida;
     }
@@ -387,7 +385,7 @@ public class Jogador extends Actor
      * Incrementa a contagem de moedas do jogador em 1.
      * Geralmente chamado por um item coletável (ex: Moeda).
      */
-    
+
     public void pegarMoeda(){
         moedas++;
     }
@@ -397,18 +395,18 @@ public class Jogador extends Actor
      * Usado pelo 'Mundo' para exibir na tela.
      * @return O valor inteiro das moedas atuais.
      */
-    
+
     public int obterMoedas(){
         return moedas;
     }
-    
+
     /**
      * Mecanismo interno de contagem de tempo.
      * Usa 'cont' para contar os ciclos (frames) do 'act'.
      * A cada 60 ciclos (aproximadamente 1 segundo), incrementa a 
      * variável 'tempo' (segundos) e zera 'cont'.
      */
-    
+
     private void contarTempo(){
         if(cont == 60){
             tempo++;
@@ -424,7 +422,7 @@ public class Jogador extends Actor
      * Usado pelo 'Mundo' para exibir na tela.
      * @return O tempo total em segundos.
      */
-    
+
     public int obterTempo(){
         return tempo;
     }
@@ -433,13 +431,13 @@ public class Jogador extends Actor
      * Verifica se a quantidade vidas do jogador é menor do que 0,
      * em caso afirmativo "GAME OVER" é decretado.
      */
-    
+
     private void verificarMorte(){
         if(vida <= 0){
             HUD hud = new HUD(this);
-            
+
             Som.obterInstancia().mutarTrilha();
-            
+
             Greenfoot.setWorld(new Tela_Derrota(hud.obterPontuacaoFinal(true), obterTempo()));
         }
     }
@@ -463,7 +461,7 @@ public class Jogador extends Actor
     public boolean ataque()
     {
         tempoDeAtaque--;
-        
+
         if(Greenfoot.isKeyDown("space") && tempoDeAtaque <= 0 && direcaoAtaque ==1)
         {
             getWorld().addObject(new AtaqueDireito(), getX(), getY());
@@ -477,5 +475,33 @@ public class Jogador extends Actor
             return true;
         }
         return false;
+    }
+
+    /***
+     * Método que verifica se há alguma barreira a frente do jogador.
+     * @return true se houver uma barreira, false caso contrário.
+     */
+
+    private boolean verficaObstaculoAFrente(){
+        int larguraJogador = getImage().getWidth();
+        int xDistancia = (int)(larguraJogador/2);
+
+        Actor barreira = getOneObjectAtOffset(xDistancia, 0, Barreira.class);
+
+        return barreira != null;
+    }
+
+    /***
+     * Método que verifica se há alguma barreira atrás do jogador.
+     * @return true se houver uma barreira, false caso contrário.
+     */
+
+    private boolean verficaObstaculoAtras(){
+        int larguraJogador = getImage().getWidth();
+        int xDistancia = (int)(larguraJogador/-2);
+
+        Actor barreira = getOneObjectAtOffset(xDistancia, 0, Barreira.class);
+
+        return barreira != null;
     }
 }
