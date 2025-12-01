@@ -21,7 +21,8 @@ public class Boss extends Inimigos
     private GreenfootImage bossD;
     //Imagem do Boss virado para a esquerda.
     private GreenfootImage bossE;
-
+    //Representa a posição no eixo x ocupada anteriormente pelo inimigo
+    private int posicaoAnteriorMonstro;
     /**
      * Construtor principal da classe Boss.
      * Associa o Boss a um {@link Jogador} específico e prepara as imagens,
@@ -35,12 +36,14 @@ public class Boss extends Inimigos
         vida = 3;
         tempoAtaque = 0;
         tempoTeletransporte = 0;
-        
+
         bossD = new GreenfootImage("VampI.png");
         bossE = new GreenfootImage("VampI.png");
-        
+
         // Espelha a imagem para que 'bossE' represente o Boss virado para a esquerda
         bossE.mirrorHorizontally();
+
+        posicaoAnteriorMonstro = 0;
     }
 
     /**
@@ -48,9 +51,13 @@ public class Boss extends Inimigos
      * Responsável por checar se o Boss foi atacado e, se ainda tiver vida,
      * gerenciar os contadores de tempo para o ataque especial e o teletransporte.
      */
-    
+
     public void act()
     {
+        ataque();       
+
+        colocarMonstro();
+
         //Verifica se o Boos sofreu dano
         atacado();
 
@@ -58,7 +65,7 @@ public class Boss extends Inimigos
         if(!verificaVida()){
 
             // Lança o ataque especial quando o contador atinge o limite
-            if(tempoAtaque == 300){    
+            if(tempoAtaque == 600){    
                 ataqueEspecial();
                 tempoAtaque = 0;
             }
@@ -79,7 +86,7 @@ public class Boss extends Inimigos
      * Adiciona múltiplos objetos {@link Skull} (projéteis) em posições e direções
      * estratégicas no mundo.
      */
-    
+
     private void ataqueEspecial(){
         // Skull 1: lado direito, indo para a esquerda
         Skull skull1 = new Skull(jogador);
@@ -124,11 +131,11 @@ public class Boss extends Inimigos
         // Tenta encontrar uma nova posição 10 vezes para evitar teletransportar para o mesmo lugar
         for (int i = 0; i < 10; i++){
             int pos = Greenfoot.getRandomNumber(4);
-    
+
             int posXDestino = 0;
             int posYDestino = 0;
             GreenfootImage imgDestino = null;
-            
+
             // Posição 0: Canto superior direito
             if(pos == 0){
                 posXDestino = 1120;
@@ -153,7 +160,7 @@ public class Boss extends Inimigos
                 posYDestino = 35;
                 imgDestino = bossD;
             }
-        
+
             // Garante que a posição de destino seja diferente da atual antes de teletransportar
             if(posXDestino != posXAtual && posYDestino != posYAtual){
                 setLocation(posXDestino, posYDestino);
@@ -168,12 +175,12 @@ public class Boss extends Inimigos
      * Se a vida for menor ou igual a zero, chama os métodos para encerrar a fase
      * (coloca o portal e o caminho final) e remove o Boss do mundo.
      */
-    
+
     private boolean verificaVida(){
         if(vida <= 0){
             portalFinal(); // Adiciona o portal de saída
             caminhoFinal(); // Modifica as plataformas
-            
+
             getWorld().removeObject(this); // Remove o Boss
         }
 
@@ -194,32 +201,41 @@ public class Boss extends Inimigos
      * Adiciona uma série de plataformas de {@link Chao} e um {@link Chao_Falso}
      * e remove todas as plataformas móveis (`Plataforma`) do mundo.
      */
-    private void caminhoFinal(){
+    private void caminhoFinal(){       
         World fase = getWorld();
 
         // Adiciona plataformas de chão formando um caminho
-        Chao chao = new Chao(50,25);
-        fase.addObject(chao, 338, 588);
+        Chao chao = new Chao(80,30);
+        fase.addObject(chao, 269, 468);
 
-        Chao chao2 = new Chao(50,25);
-        fase.addObject(chao2, 438, 588);
+        Chao chao2 = new Chao(80,30);
+        fase.addObject(chao2, 403, 406);
 
-        Chao chao3 = new Chao(50,25);
-        fase.addObject(chao3, 538, 588);
+        Chao chao3 = new Chao(80,30);
+        fase.addObject(chao3, 520, 344);
 
         // Adiciona um "Chão Falso" (armadilha)
-        Chao_Falso chao4 = new Chao_Falso(50,25);
-        fase.addObject(chao4, 638, 588);
+        Chao chao4 = new Chao(80,30);
+        fase.addObject(chao4, 654, 286);
 
-        Chao chao5 = new Chao(50,25);
-        fase.addObject(chao5, 738, 588);
+        Chao chao5 = new Chao(80,30);
+        fase.addObject(chao5, 794, 232);
 
-        Chao chao6 = new Chao(50,25);
-        fase.addObject(chao6, 838, 588);
-        
+        Chao chao6 = new Chao(80,30);
+        fase.addObject(chao6, 920, 168);
+
+        Chao chao7 = new Chao(80,30);
+        fase.addObject(chao7,1026,123);
+
+        Chao_Falso chao8 = new Chao_Falso(70,25);
+        fase.addObject(chao4, 1120, 68);
+
+        Chave chave = new Chave(jogador);
+        fase.addObject(chave, 1120, 38);
+
         // Remove todas as plataformas móveis existentes no mundo
         List <Plataforma> plataformas = getWorld().getObjects(Plataforma.class);
-    
+
         for (int i = 0; i < plataformas.size(); i++){
             getWorld().removeObject(plataformas.get(i));
         }
@@ -230,7 +246,7 @@ public class Boss extends Inimigos
      * Verifica se intersecta com um objeto da classe {@link Ataque}. Se sim,
      * diminui a vida, remove o ataque e força um teletransporte imediato.
      */
-    
+
     private void atacado(){
         // Verifica se há um objeto específico da classe Ataque tocando no Boss
         Actor ataque = getOneIntersectingObject(Ataque.class);
@@ -241,5 +257,46 @@ public class Boss extends Inimigos
             getWorld().removeObject(ataque); // Remove o ataque para evitar dano duplo
             tesletransporte();
         }
+    }
+
+    /**
+     * Método responsável por spawnar um mostro em uma 
+     * das posições configuradas.
+     */
+
+    private void colocarMonstro(){
+        if(!haMonstros()){
+            World mundo = getWorld();
+
+            Monstro monstro = new Monstro(jogador);    
+            monstro.mudarTempo(56);
+
+            int posicao = Greenfoot.getRandomNumber(3) + 1;
+
+            if(posicao == 1 && posicao != posicaoAnteriorMonstro){
+                mundo.addObject(monstro,645,565);
+                posicaoAnteriorMonstro = posicao;
+            }
+            else if (posicao == 2 && posicao != posicaoAnteriorMonstro){
+                mundo.addObject(monstro,440,565);
+                posicaoAnteriorMonstro = posicao;
+            }
+            else if (posicao == 3 && posicao != posicaoAnteriorMonstro){
+                mundo.addObject(monstro,845,565);
+                posicaoAnteriorMonstro = posicao;
+            }
+        }
+    }
+
+    /***
+     * Metódo que verifica se há algum objeto da classe Monstro
+     * no mundo.
+     * @return True Caso não houver nenhum. False Caso contrário.
+     */
+
+    private boolean haMonstros(){
+        List<Monstro> monstros = getWorld().getObjects(Monstro.class);
+
+        return monstros.size() != 0;
     }
 }
