@@ -1,49 +1,52 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Representa um item "Chave" que pode ser coletado pelo jogador.
- * Esta é uma implementação concreta da classe {@link Coletaveis}.
- * @author Joao Fernandes
- * @version 1.0
+ * Representa um item coletável do tipo Chave.
+ * A chave geralmente é usada para desbloquear o portal e tem um efeito sonoro de moeda.
+ * Herda o comportamento básico de coleta da classe Coletaveis.
+ * @version 2.0
  */
-public class Chave extends Coletaveis
-{
-    // Define a ação que esta fruta executará ao ser coletada (3 = pegar chave).
-    private int acao;
+
+public class Chave extends Coletaveis{
 
     /**
-     * Construtor da classeChave
-     * <p>
-     * Inicializa o coletável, define sua ação específica como '3' (que, na classe 
-     * {@link Coletaveis}, corresponde a {@link Jogador#pegouAChave();}) e 
-     * ajusta o tamanho da imagem do ator.
-     * * @param jogador A referência ao jogador, passada para a superclasse {@link Coletaveis}.
+     * Construtor para objetos da classe Chave.
+     * @param jogador A instância do jogador que pode coletar este item.
      */
-    
-    public Chave(Jogador jogador){
+
+    public Chave(Jogador jogador)
+    {
         super(jogador);
-        acao = 3;
     }
 
     /**
-     * Construtor auxiliar afim de facilitar testes e criação de novas fases.
+     * Sobrescreve o método da superclasse para aplicar o efeito da Chave.
      */
-    
-    public Chave(){
-        super(new Jogador());
-        acao = 3;
+
+    @Override
+    protected void aplicarEfeito()
+    {
+
     }
 
     /**
-     * Método chamado automaticamente pelo Greenfoot a cada ciclo de execução.
-     * Método principal de atuação (loop) da classe Chave.
-     * Define sua ação específica como '3' (que, na classe 
-     * {@link Coletaveis}, corresponde a {@link Jogador#pegarChave()}) e 
-     * @param jogador A referência ao jogador, passada para a superclasse {@link Coletaveis}.
+     * Sobrescreve o método da superclasse para obter o nome do som de coleta.
+     * @return O nome do arquivo de som de 'moeda'.
      */
+
+    @Override
+    protected String obterNomeEfeitoSonoro()
+    {
+        return "coin.wav";
+    }
+
+    /**
+     * O método 'act' é executado a cada frame.
+     * Chama o método para verificar a coleta do item.
+     */
+
     public void act()
     {
-        // Chama o método herdado da classe Coletaveis
-        coletar(acao, "coin.wav");
+        coletar();
     }
 }

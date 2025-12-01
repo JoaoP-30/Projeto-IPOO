@@ -1,56 +1,54 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Fruta_1 here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Representa um item coletável do tipo Fruta, que serve para aumentar a vida do jogador.
+ * Herda o comportamento básico de coleta da classe Coletaveis.
+ * @version 2.0
  */
+
 public class Fruta_1 extends Coletaveis
 {
-    // Define a ação que esta fruta executará ao ser coletada (2 = aumentar vida).
-    private int acao;
-    
-    
     /**
-     * Construtor da classe Fruta_1.
-     * <p>
-     * Inicializa o coletável, define sua ação específica como '2' (que, na classe 
-     * {@link Coletaveis}, corresponde a {@link Jogador#aumentarVida()}) e 
-     * ajusta o tamanho da imagem do ator.
-     * * @param jogador A referência ao jogador, passada para a superclasse {@link Coletaveis}.
+     * Construtor para objetos da classe Fruta_1.
+     * @param jogador A instância do jogador que pode coletar este item.
      */
     
-    public Fruta_1(Jogador jogador){
+    public Fruta_1(Jogador jogador)
+    {
         super(jogador);
-        
-        acao = 2;
-        
+        // Define o tamanho da imagem da fruta.
         getImage().scale(34,36);
     }
     
     /**
-     * Construtor auxiliar afim de facilitar testes e criação de novas fases.
+     * Sobrescreve o método da superclasse para aplicar o efeito da Fruta.
+     * Aumenta a vida do jogador.
      */
     
-    public Fruta_1(){
-        super(new Jogador());
-        acao = 2;
-        
-        getImage().scale(34,36);
+    @Override
+    protected void aplicarEfeito()
+    {
+        obterJogador().aumentarVida();
     }
     
+    /**
+     * Sobrescreve o método da superclasse para obter o nome do som de coleta.
+     * @return O nome do arquivo de som de 'power-up'.
+     */
+    
+    @Override
+    protected String obterNomeEfeitoSonoro()
+    {
+        return "power_up.wav";
+    }
     
     /**
-     * Método chamado automaticamente pelo Greenfoot a cada ciclo de execução.
-     * Método principal de atuação (loop) da classe Fruta_1.
-     * <p>
-     * A cada ciclo, ele chama o método {@link Coletaveis#coletar(int, String)},
-     * passando a ação '2' (aumentar vida) e o efeito sonoro "power_up.wav".
+     * O método 'act' é executado a cada frame.
+     * Chama o método para verificar a coleta do item.
      */
     
     public void act()
     {
-        coletar(acao, "power_up.wav");
+        coletar();
     }
 }

@@ -1,33 +1,25 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Representa uma Moeda coletável que possui uma animação de rotação.
- * * Ela herda da classe {@link Coletaveis}, utilizando o método {@link Coletaveis#coletar()} 
- * * para a lógica de coleta, e adiciona uma lógica de animação própria.
- * @author Joao Fernandes 
- * @version 1.0
+ * Representa um item coletável do tipo Moeda.
+ * Além de ser coletável, este item possui uma animação de rotação.
+ * @version 2.0
  */
 
-public class Moeda extends Coletaveis
-{
+public class Moeda extends Coletaveis{
     //Array que armazena todas as imagens (frames) da animação da moeda.
     private GreenfootImage[] moedas;
     //Índice do frame atual exibido.
     private int frame;
-    //Define a velocidade da animação.
+    //Define a velocidade da animação (quanto maior o valor, mais lenta a animação). 
     private final int velAnimacao;
     //Contador para controlar o delay até a próxima troca de frame.
     private int contAnimacao;
-    // Define a ação que esta fruta executará ao ser coletada (1 = pegar moeda).
-    private int acao;
-    
+       
     /**
-     * Construtor da classe Moeda.
-     * Preenche o vetor moedas para as imagens da animação e 
-     * inicializa a variáveis de controle de animação.
-     * Define sua ação específica como '1' (que, na classe 
-     * {@link Coletaveis}, corresponde a {@link Jogador#pegarMoeda()}) e 
-     * @param jogador A referência ao jogador, passada para a superclasse {@link Coletaveis}.
+     * Construtor para objetos da classe Moeda.
+     * Inicializa os frames da animação, a velocidade e o contador.
+     * @param jogador A instância do jogador que pode coletar este item.
      */
     
     public Moeda(Jogador jogador){
@@ -35,59 +27,52 @@ public class Moeda extends Coletaveis
         
         moedas = new GreenfootImage[12];
 
+        // Carrega todas as 12 imagens da animação
         for (int i = 0; i < moedas.length; i++){
             // O Greenfoot automaticamente procura na pasta "images/"
             moedas[i] = new GreenfootImage("/coins/coin" + (i + 1) + ".png");
         }
 
         frame = 0;
-        velAnimacao = 14;
+        velAnimacao = 14; // A cada 14 ciclos do 'act', a imagem muda
         contAnimacao = 0;
-    
-        acao = 1;
     }
 
     /**
-     * Construtor auxiliar afim de facilitar testes e criação de novas fases.
+     * Sobrescreve o método da superclasse para aplicar o efeito da Moeda.
+     * Adiciona uma moeda/pontos ao jogador.
      */
     
-    public Moeda(){
-        super(new Jogador());
-        
-          moedas = new GreenfootImage[12];
-
-        for (int i = 0; i < moedas.length; i++){
-            // O Greenfoot automaticamente procura na pasta "images/"
-            moedas[i] = new GreenfootImage("/coins/coin" + (i + 1) + ".png");
-        }
-
-        frame = 0;
-        velAnimacao = 14;
-        contAnimacao = 0;
+    @Override
+    protected void aplicarEfeito(){
+        obterJogador().pegarMoeda();
+    }
     
-        acao = 1;
+    /**
+     * Sobrescreve o método da superclasse para obter o nome do som de coleta.
+     * @return O nome do arquivo de som de 'moeda'.
+     */
+    
+    @Override
+    protected String obterNomeEfeitoSonoro(){
+        return "coin.wav";
     }
     
     
     /**
-     * Método chamado automaticamente pelo Greenfoot a cada ciclo de execução.
-     * Método principal de atuação (loop) da classe Moeda.
-     * <p>
-     * A cada ciclo, ele executa duas coisas:
-     * 1. Chama {@link #animacao()} para atualizar o frame da animação.
-     * 2. Chama {@link Coletaveis#coletar()} para verificar se foi coletada.
+     * O método 'act' é executado a cada frame.
+     * Controla a animação e verifica a coleta do item.
      */
     
     public void act()
     {
         animacao();
-        // Chama o método herdado da classe Coletaveis
-        coletar(acao, "coin.wav");
+        coletar();
     }
     
+
     /**
-     * Controla a lógica de animação da moeda.
-     * Troca a imagem (frame) da moeda em intervalos definidos por 'velAnimacao'.
+     * Responsável por gerenciar a troca de frames para criar o efeito de animação.
      */
     
     private void animacao(){
@@ -98,10 +83,10 @@ public class Moeda extends Coletaveis
             // Zera o contador para o próximo ciclo de delay
             contAnimacao = 0;
              
-            //Incrementa o frame 
+            // Incrementa o índice do frame 
             frame++;
             
-            //Impede que posições inválidas sejam buscadas no array moedas, criando um loop
+            // Impede que posições inválidas sejam buscadas no array moedas, criando um loop na animação
             if(frame >= moedas.length){
                 frame = 0;
             }
