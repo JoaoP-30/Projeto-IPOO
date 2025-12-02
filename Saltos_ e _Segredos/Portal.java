@@ -58,8 +58,8 @@ public class Portal extends Actor
             else if(faseAtual instanceof Fase_3){
                 ((Fase_3) faseAtual).irParaProximaFase();
             }
-            else if(faseAtual instanceof Fase_6){
-                ((Fase_6) faseAtual).irParaProximaFase();
+            else if(faseAtual instanceof Fase_4){
+                ((Fase_4) faseAtual).irParaProximaFase();
             }
 
         }
