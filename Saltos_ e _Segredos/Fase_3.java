@@ -4,8 +4,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * Representa a terceira fase (nível) do jogo.
  * Esta classe é responsável por inicializar todos os objetos, plataformas,
  * inimigos e itens colecionáveis específicos da Fase 3.
- * @author Joao Fernandes 
- * @version 1.0
+ * @version 1.1
  */
 public class Fase_3 extends Fases
 {

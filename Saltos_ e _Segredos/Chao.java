@@ -3,7 +3,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Representa um objeto de "Chao" simples no mundo.
  * É uma implementação concreta da classe abstrata {@link Solo}.
- * @author Joao Fernandes 
  * @version 1.0
  */
 public class Chao extends Solo

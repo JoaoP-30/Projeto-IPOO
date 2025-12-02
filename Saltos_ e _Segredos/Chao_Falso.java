@@ -4,7 +4,6 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * Representa um bloco de "chão falso".
  * Este tipo de chão é projetado para desaparecer assim que o {@link Jogador}
  * tocar nele.
- * @author Joao Fernandes 
  * @version 1.0
  */
 public class Chao_Falso extends Actor

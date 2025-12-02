@@ -62,7 +62,7 @@ public class Jogador extends Actor
 
         frame = 0;
 
-        vida = 2;
+        vida = 3;
         moedas = 0;
         inimigosMortos = 0; // Inicialização do novo campo
         tempoInvulneravel = 180;

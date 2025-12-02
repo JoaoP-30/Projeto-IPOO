@@ -23,18 +23,6 @@ public class Tela_Derrota extends Fases
         prepararVisual();
     }
 
-    /***
-     * Construtor auxiliar para facilitar testes.
-     */
-
-    public Tela_Derrota()
-    {    
-        pontosTotal = 0;
-        tempoTotal = 0;
-
-        prepararVisual();
-    }
-
     /**
      * Método separado para organizar a lógica visual.
      */

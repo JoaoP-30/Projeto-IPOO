@@ -4,7 +4,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * Representa a sexta fase do jogo.
  * Esta fase é caracterizada por uma disposição específica de plataformas, chão e
  * a presença do {@link Boss}. Ela herda funcionalidades básicas de {@link Fases}.
- * @version 1.0
+ * @version 2.0
  */
 
 public class Fase_4 extends Fases
@@ -24,7 +24,10 @@ public class Fase_4 extends Fases
     public Fase_4(Jogador jogador)
     {
         this.jogador = jogador;
+        
         jogador.definirVida(jogador.obterVida() + 1);
+        
+        Som.obterInstancia().tocarTrilha("Tema1.wav");
         
         prepare();
     }
@@ -103,15 +106,10 @@ public class Fase_4 extends Fases
         addObject(barreira4,965,494);
 
         Barreira barreira5 = new Barreira();
-        addObject(barreira5,184,462);
-        barreira5.setLocation(185,464);
+        addObject(barreira5,185,464);
+        
         Barreira barreira6 = new Barreira();
-        addObject(barreira6,965,462);
-        barreira6.setLocation(963,457);
-        barreira6.setLocation(969,461);
-        barreira6.setLocation(967,458);
-        barreira6.setLocation(964,464);
-        barreira6.setLocation(965,464);
+        addObject(barreira6,965,464);
         
         showText("Fase 4 - A Ultima Aventura", getWidth() / 2, 20);
     }

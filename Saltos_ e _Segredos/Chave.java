@@ -26,7 +26,7 @@ public class Chave extends Coletaveis{
     @Override
     protected void aplicarEfeito()
     {
-
+        // método vazio
     }
 
     /**

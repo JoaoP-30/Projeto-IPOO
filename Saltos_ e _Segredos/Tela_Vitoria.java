@@ -23,20 +23,7 @@ public class Tela_Vitoria extends Fases
         
         prepararVisual();
     }
-    
-    /***
-     * Construtor auxiliar para facilitar testes.
-     */
-    
-    public Tela_Vitoria()
-    {    
-        pontosTotal = 0;
-        tempoTotal = 0;
-        
-        prepararVisual();
-    }
-    
-    
+      
     /**
      * Método separado para organizar a lógica visual.
      */

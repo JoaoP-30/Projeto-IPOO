@@ -22,7 +22,6 @@ public class Fase_1 extends Fases
     public Fase_1()
     {    
         jogador = new Jogador();
-        jogador.definirVida(1);
         
         Som.obterInstancia().tocarTrilha("Tema1.wav");
         prepare();

@@ -5,6 +5,7 @@ import greenfoot.*;
  * informações vitais do jogo na tela, como a vida do jogador, 
  * a contagem de moedas e o tempo decorrido.
  * Ele atualiza essas informações a cada ciclo do jogo (frame).
+ * @version 2.0
  */
 
 public class HUD extends Actor {
@@ -27,7 +28,7 @@ public class HUD extends Actor {
     public HUD(Jogador jogador) {
         this.jogador = jogador;
 
-        moeda.scale(20, 20); // Ajuste de tamanho se necessário
+        moeda.scale(20, 20);
         
         // Chama o método de atualização uma vez no construtor 
         // para exibir o HUD inicial assim que ele é criado.

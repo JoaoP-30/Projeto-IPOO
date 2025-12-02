@@ -1,17 +1,18 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Dicas here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Representa a tela de Dicas ou Tutorial do jogo.
+ * Esta tela exibe informações úteis sobre a jogabilidade, como regras de queda,
+ * invulnerabilidade temporária e bônus de pontuação.
+ * @version 1.5
  */
 public class Dicas extends Fases
 {
 
     /**
-     * Constructor for objects of class Dicas.
-     * 
+     * Construtor para objetos da classe Dicas.
+     * * Configura o plano de fundo, desenha o conteúdo do tutorial e adiciona
+     * o botão de voltar.
      */
     public Dicas()
     {
@@ -22,15 +23,21 @@ public class Dicas extends Fases
         adicionarBotaoVoltar();
     }
 
+    /**
+     * Define a imagem de fundo para a tela de Dicas.
+     * A imagem "como_jogar.png" é carregada e escalada para cobrir toda a área do mundo.
+     */
     private void background(){
         // Imagem de fundo
         GreenfootImage fundoLayout = new GreenfootImage("como_jogar.png");
+        // Escala a imagem de fundo para as dimensões atuais do mundo
         fundoLayout.scale(getWidth(), getHeight());
         setBackground(fundoLayout);
     }
     
     /**
-     * Imprime os textos do tutorial.
+     * Imprime os textos informativos (dicas) do tutorial na imagem de fundo.
+     * Inclui o título da página e diversos pontos sobre a jogabilidade.
      */
     private void desenharTutorial()
     {
@@ -38,19 +45,20 @@ public class Dicas extends Fases
         
         // Título da Página
         fundo.setColor(Color.WHITE); 
+        // Define a fonte para o título
         fundo.setFont(new Font("Comic Sans MS", true, false, 40)); 
         fundo.drawString("    Dicas   ", 465, 60);
         
-        int xTexto = 50; // Posição horizontal
-        int yTexto = 120; // Posição vertical
-        int espacoLinha = 35; // Espaço entre as linhas
+        int xTexto = 50; // Posição horizontal inicial para o texto
+        int yTexto = 120; // Posição vertical inicial para o texto
+        int espacoLinha = 35; // Espaço em pixels entre as linhas de texto
         
-        // Frase de comandos
+        // Define a fonte e cor para o corpo do texto
         fundo.setFont(new Font("Verdana", false, false, 22));
         fundo.setColor(Color.BLACK); 
             
-        int xComando = xTexto + 20;
-        int xDescricao = xComando + 10;
+        int xComando = xTexto + 20; // Posição X para o marcador de tópico (•)
+        int xDescricao = xComando + 10; // Posição X para o texto de descrição
         
         //--- Queda ---
         
@@ -89,25 +97,28 @@ public class Dicas extends Fases
     }
     
     /**
-     * Adiciona um botão "Voltar" (usando a classe PainelJogo).
+     * Adiciona um botão "Voltar" à tela.
+     * O botão é uma instância da classe {@link PainelJogo} com um ID específico (99)
+     * para gerenciar seu clique.
      */
     private void adicionarBotaoVoltar()
     {
-        // Usamos um id que não conflite com os id´s 1 e 2
         PainelJogo btnVoltar = new PainelJogo("Voltar", 99);
-        addObject(btnVoltar, 565, 500); // Centralizado na parte inferior
+        // Adiciona o botão centralizado na parte inferior do mundo
+        addObject(btnVoltar, 565, 500); 
     }
     
     /**
-     * Gerencia o clique no botão "Voltar".
-     * Este método será chamado pelo PainelJogo.
+     * Gerencia a ação de clique nos botões presentes nesta tela.
+     * Este método é tipicamente chamado por um objeto {@link PainelJogo} quando clicado.
+     * @param id O identificador único do botão que foi clicado.
      */
     public void botaoClicado(int id)
     {
         // Se o botão voltar (ID 99) for clicado
         if (id == 99)
         {
-            // Volta para a Tela Inicial
+            // Volta para a Tela Inicial, carregando um novo mundo
             Greenfoot.setWorld(new Tela_Inicial());
         }
     }

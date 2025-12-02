@@ -2,8 +2,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
  * Representa o painel inicial com botoes para a Interface de Usuário.
- * @author (Seu Nome / Joao Fernandes / Maria Clara O Pereira) 
- * @version 1.0
+ * @version 2.0
  */
 public class PainelJogo extends Actor
 {

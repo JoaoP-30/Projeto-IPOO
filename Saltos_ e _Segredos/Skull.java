@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Skull extends Inimigos
 {
-    //Referência ao objeto {@link Jogador} para quem o projétil está direcionado.
+    //Referência ao objeto jogador para quem o projétil está direcionado.
     private Jogador jogador;
     //A velocidade de movimento do projétil. O valor padrão é 4.
     private int velocidade = 4;
