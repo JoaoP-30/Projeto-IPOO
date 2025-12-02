@@ -9,7 +9,7 @@ import java.util.List;
  */
 
 public class Ataque extends Actor
-{
+{ 
     /**
      * O método 'Act' é chamado a cada frame de execução.
      * Seu único propósito é chamar o método principal de detecção de colisão
@@ -96,13 +96,7 @@ public class Ataque extends Actor
      * pontos pela morte de um inimigo.
      */
     public void pontuar(){
-        // Obtém todos os objetos HUD no mundo
-        List <HUD> huds = getWorld().getObjects(HUD.class);
-        
-        // Assume que existe apenas um HUD e pega o primeiro
-        HUD hud = huds.getFirst();
-    
-        // Chama o método de pontuação no HUD
-        hud.pontuarMorteInimigo();
+        Jogador jogador = (Jogador) getWorld().getObjects(Jogador.class).get(0); 
+        jogador.incrementarInimigosMortos();      
     }
 }

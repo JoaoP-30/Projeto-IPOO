@@ -22,6 +22,7 @@ public class Fase_1 extends Fases
     public Fase_1()
     {    
         jogador = new Jogador();
+        jogador.definirVida(5);
         
         Som.obterInstancia().tocarTrilha("Tema1.wav");
         prepare();
@@ -145,7 +146,7 @@ public class Fase_1 extends Fases
      */
     
     public void irParaProximaFase(){
-        Pontuacao.obterInstancia().adicionarPontuacao("Fase_1",hud.obterPontos());
+        Pontuacao.obterInstancia().adicionarPontuacao("Fase_1",Pontuacao.obterInstancia().obterPontuacaoTotalLiquida());
         
         Som.obterInstancia().mutarTrilha();
         

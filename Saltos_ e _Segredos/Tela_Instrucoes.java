@@ -42,7 +42,7 @@ public class Tela_Instrucoes extends Fases
         // Título da Página
         fundo.setColor(Color.WHITE); 
         fundo.setFont(new Font("Comic Sans MS", true, false, 40)); 
-        fundo.drawString("--- Como Jogar ---", 400, 100);
+        fundo.drawString("    Como Jogar    ", 400, 100);
         
         int xTexto = 250; // Posição horizontal
         int yTexto = 200; // Posição vertical
@@ -51,7 +51,7 @@ public class Tela_Instrucoes extends Fases
        
         // Frase de comandos
         fundo.setFont(new Font("Verdana", false, false, 22));
-        fundo.setColor(Color.WHITE); 
+        fundo.setColor(Color.BLACK); 
         
         int xComando = xTexto + 20;
         int xDescricao = xComando + 350;

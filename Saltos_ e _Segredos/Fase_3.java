@@ -22,23 +22,13 @@ public class Fase_3 extends Fases
     public Fase_3(Jogador jogador)
     {                
         this.jogador = jogador;
+        jogador.definirVida(jogador.obterVida() + 1);
         
         Som.obterInstancia().tocarTrilha("Tema1.wav");
 
         prepare();
     }
 
-    /**
-     * Construtor auxiliar para objetos da classe Fase_2.
-     * Tem por objetivo facilitar a crição/modificação do mesmo.
-     */
-    
-    public Fase_3(){
-        jogador = new Jogador();
-        
-        prepare();
-    }
-    
     /**
      * Prepara o mundo da Fase 3.
      * Este método é responsável por criar e adicionar todos os atores 
@@ -143,7 +133,7 @@ public class Fase_3 extends Fases
      */
     
     public void irParaProximaFase(){
-        Pontuacao.obterInstancia().adicionarPontuacao("Fase_3",hud.obterPontos());
+        Pontuacao.obterInstancia().adicionarPontuacao("Fase_3",Pontuacao.obterInstancia().obterPontuacaoTotalLiquida());
         
         Som.obterInstancia().mutarTrilha();
         

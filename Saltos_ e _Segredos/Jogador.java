@@ -4,56 +4,53 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * Representa o jogador principal no jogo.
  * Esta classe controla o movimento (horizontal e vertical), as animações e estado (como vida, moedas)
  * e as interações de físcia (salto, gravidade) do personagem controlado pelo usuário.
- * @version 3.0
+ * @version 3.1 - Lógica de pontuação movida do HUD para o Jogador.
  */
 
 public class Jogador extends Actor
 {
-    //Array de imagens para a animação do jogador movendo-se para a direita.
+    // Array de imagens para a animação do jogador movendo-se para a direita.
     private GreenfootImage[] animacaoD;
-    //Array de imagens para a animação do jogador movendo-se para a esquerda.
+    // Array de imagens para a animação do jogador movendo-se para a esquerda.
     private GreenfootImage[] animacaoE;
-    //Contador para controlar o frame atual da animao.
+    // Contador para controlar o frame atual da animao.
     private int frame;
-    //Contador de vida do jogador
+    // Contador de vida do jogador
     private int vida;
-    //Contador de moedas do jogador
+    // Contador de moedas do jogador
     private int moedas;
-    //Conta o tempo em que o jogador fica invulnerável apos tomar um dano
+    // Adicionado: Contador de inimigos mortos para cálculo da pontuação
+    private int inimigosMortos;
+    // Conta o tempo em que o jogador fica invulnerável apos tomar um dano
     private int tempoInvulneravel;
-    //Velocidade de movimento horizontal do jogador
+    // Velocidade de movimento horizontal do jogador
     private int velMovimento;
-    //Indica se o jogador está no ar (pulando ou caindo)
+    // Indica se o jogador está no ar (pulando ou caindo)
     private boolean estaPulando;
-    //Velocidade vertical atual do jogador
+    // Velocidade vertical atual do jogador
     private int velVertical;
-    //Simula ação da agravidade 
+    // Simula ação da agravidade 
     private int aceleracao;
-    //Força aplicada quando o jogador pula
+    // Força aplicada quando o jogador pula
     private int forcaDoSalto;
-    //Posição inicial do jogador no eixo x
+    // Posição inicial do jogador no eixo x
     private int posX;
-    //Posição inicial do jogador no eixo y
+    // Posição inicial do jogador no eixo y
     private int posY;
-    //Duração da partida em segundos
+    // Duração da partida em segundos
     private int tempo;
-    //Contador para segundos, quando chega a 60 o 'tempo' é incrementado em 1
+    // Contador para segundos, quando chega a 60 o 'tempo' é incrementado em 1
     private int cont;
-    //Direção que o ataque vai ser executado
+    // Direção que o ataque vai ser executado
     private int direcaoAtaque;
-    //Tempo de espera para executar o próximo ataque
+    // Tempo de espera para executar o próximo ataque
     private int tempoDeAtaque;
 
     /**
      * Construtor da classe Jogador.
      * Inicializa os arrays de animação carregando as imagens.
-     * Define os valores iniciais para todos os atributos:
-     * - Status (vida, moedas, ).    
-     * - Física (velocidade, "gravidade", força do salto).
-     * - Animação (frame).
-     * - Som.
+     * Define os valores iniciais para todos os atributos.
      */
-
     public Jogador(){
         animacaoD = new GreenfootImage[4];
         animacaoE = new GreenfootImage[4];
@@ -67,6 +64,7 @@ public class Jogador extends Actor
 
         vida = 2;
         moedas = 0;
+        inimigosMortos = 0; // Inicialização do novo campo
         tempoInvulneravel = 180;
 
         velMovimento = 5;
@@ -84,17 +82,7 @@ public class Jogador extends Actor
 
     /**
      * Método chamado automaticamente pelo Greenfoot a cada ciclo de execução.
-     * Método principal de atuação (loop) da classe Jogador.
-     * Ele gerencia o estado do jogador chamando:
-     * 1. {@link #verificarMorte()} - Verifica se o status de vida do jogador. 
-     * 2. {@link #contarTempo()} - Incrementa o relógio do jogo.
-     * 3. {@link #ataque()} - Regula se o ataque pode ser executado.
-     * 4. {@link #tempoInvulneravel()} - Decrementa o timer de invulnerabilidade.
-     * 5. {@link #movimento()} - Verifica entradas do teclado.
-     * 6. {@link #verificaQueda()} - Aplica gravidade se estiver no ar.
-     * 7. {@link #teto()} - Verifica colisão com o teto
      */
-
     public void act()
     {
         verificarMorte();
@@ -108,12 +96,7 @@ public class Jogador extends Actor
 
     /**
      * Verifica a entrada do teclado (teclas "right" e "left", e "up").
-     * - Se "right"/"left: chama {@link #moverDireita()} ou {@link #moverEsquerda()}.
-     * - Se "up": chama {@link #salto()} (apenas se não estiver pulando).
-     * * Também verifica se o jogador caiu no fundo do mundo {@link #estaNoFundo()},
-     * e o reposiciona na posição inicial.
      */
-
     private void movimento(){
         if(!estaNoFundo()){    
             if(Greenfoot.isKeyDown("right") && !verficaObstaculoAFrente()){
@@ -137,10 +120,7 @@ public class Jogador extends Actor
 
     /**
      * Executa o movimento do jogador para a direita.
-     * Move o ator 'velMovimento' pixels e atualiza o sprite (imagem)
-     * para o próximo quadro da animação 'animacaoD'.
      */
-
     private void moverDireita(){
         move(velMovimento);
 
@@ -154,10 +134,7 @@ public class Jogador extends Actor
 
     /**
      * Executa o movimento do jogador para a esquerda.
-     * Move o ator '-velMovimento' pixels (para trás) e atualiza o sprite (imagem)
-     * para o próximo quadro da animação 'animacaoE'.
      */
-
     private void moverEsquerda(){
         move(-velMovimento);
 
@@ -171,11 +148,7 @@ public class Jogador extends Actor
 
     /**
      * Inicia o salto do jogador.
-     * Aplica um foça negativa ('forcaDoSalto) à 'velVertical'.
-     * Define 'estaPulando' como true, aplica o primeiro movimento
-     * de {@link #queda()} e toca o som de pulo.
      */
-
     private void salto()
     {
         velVertical -= forcaDoSalto;
@@ -189,11 +162,7 @@ public class Jogador extends Actor
 
     /**
      * Simula a física da gravidade e do movimento vertical.
-     * Move o jogador na posição Y com base na 'velVertical' atual.
-     * Em, aumenta a 'velVertical' pela 'aceleracao' (gravidade),
-     * até um limite (9).
      */
-
     private void queda(){
         setLocation(getX(), getY() + velVertical);
 
@@ -207,11 +176,7 @@ public class Jogador extends Actor
 
     /**
      * Gerencia o estado de pulo/queda do jogador a cada chamada do método 'act'.
-     * Se o jogador estiver no solo ({@link #estaNoSolo()}), zera a velocidade 
-     * vertical e permite um novo pulo.
-     * Caso contrário (está no ar), chama {@link #queda()} para aplicar a gravidade.
      */
-
     private void verificaQueda()
     {
         if(estaNoSolo())
@@ -226,10 +191,8 @@ public class Jogador extends Actor
 
     /**
      * Verifica se o jogador está colidindo com um ator 'Solo' abaixo dele.
-     * Usa 'getOneObjectAtOffset' para verificar logo abaixo dos "pés" do jogador.
-     * * @return true se estiver no solo, false caso contrário.
+     * @return true se estiver no solo, false caso contrário.
      */
-
     private boolean estaNoSolo()
     {
         Actor solo = getOneObjectAtOffset(0, getImage().getHeight()/2, Solo.class);
@@ -240,10 +203,8 @@ public class Jogador extends Actor
             return false;
         }
         else{
-
             // Tocou no solo 
             moverParaSolo(solo);// Corrige a posição para ficar em cima do solo
-
             return true;
         }
     }
@@ -251,26 +212,22 @@ public class Jogador extends Actor
     /**
      * Corrige a posição Y do jogador para que ele fixe perfeitamente 
      * em cima do ator 'solo' em que ele aterrissou.
-     * Isso evita que o jogador afunde parcialmente no chão.
-     * * @param solo O ator 'Solo' com o qual o jogador colidiu.
+     * @param solo O ator 'Solo' com o qual o jogador colidiu.
      */
-
     private void moverParaSolo(Actor solo){
         int soloAltura = solo.getImage().getHeight();
         // Calcula o Y exato para o jogador ficar em cima do solo
         int novoY = solo.getY() - (soloAltura + getImage().getHeight()) / 2;
         setLocation(getX(), novoY);
 
-        //Permite pular novamente
+        // Permite pular novamente
         estaPulando = false; 
     }
 
     /**
      * Verifica se o jogador colidiu com um ator 'Solo' acima dele (teto).
-     * Usa 'getOneObjectAtOffset' para verificar acima da "cabeça" do jogador.
-     * * @return true se bateu no teto, false caso contrário.
+     * @return true se bateu no teto, false caso contrário.
      */
-
     private boolean teto(){
         int jogAltura = getImage().getHeight();
         // Ponto de verificação (acima do centro da cabeça do jogador)
@@ -290,10 +247,8 @@ public class Jogador extends Actor
     /**
      * Corrige a posição Y do jogador para que ele fixe corretamente
      * abaixo do ator 'teto' (Solo) em que ele bateu a cabeça.
-     * Isso evita que o jogador atravesse o teto.
-     * * @param teto O ator 'Solo' (usado como teto) com o qual o jogador colidiu.
+     * @param teto O ator 'Solo' (usado como teto) com o qual o jogador colidiu.
      */
-
     private void bateuNoTeto(Actor teto){
         int tetoAltura = teto.getImage().getHeight();
         // Calcula o Y exato para o jogador ficar abaixo do teto
@@ -304,10 +259,8 @@ public class Jogador extends Actor
 
     /**
      * Verifica se o jogador caiu abaixo do limite inferior do mundo.
-     * (Levando em consideraçãp que o mundk possui 600 pixels de altura).
-     * * @return true se o jogador caiu (Y >= 599), false caso contrário.
+     * @return true se o jogador caiu (Y >= 599), false caso contrário.
      */
-
     private boolean estaNoFundo(){
         int posY = getY();
 
@@ -319,12 +272,10 @@ public class Jogador extends Actor
     }
 
     /**
-     * Define as posições inicias no eixo x e y. Este método é chamado quando o jogador é
-     * adicionado ao mundo.
-     * @param posY A posião no eixo Y inicial (é a mesma que o jogador é adicionado ao mundo).
-     * @param posX A posião no eixo X inicial (é a mesma que o jogador é adicionado ao mundo).
+     * Define as posições inicias no eixo x e y.
+     * @param posY A posião no eixo Y inicial.
+     * @param posX A posião no eixo X inicial.
      */
-
     public void inserirPosicaoInicial(int posY, int posX){
         this.posY= posY;
         this.posX = posX;
@@ -332,10 +283,7 @@ public class Jogador extends Actor
 
     /**
      * Aplica dano ao jogador.
-     * Reduz a 'vida' em 1 e reinicia o 'tempoInvulneravel' para 180 ciclos (3 segundos).
-     * Chamado geralmente por um 'Inimigo'.
      */
-
     public void receberDano(){
         vida--;
         tempoInvulneravel = 180;
@@ -343,9 +291,7 @@ public class Jogador extends Actor
 
     /**
      * Contagem regressiva do tempo de invulnerabilidade.
-     * Chamado a cada 'act', reduz o contador 'tempoInvulneravel' até que chegue a 0.
      */
-
     private void tempoInvulneravel(){
         if(tempoInvulneravel > 0){
             tempoInvulneravel--;
@@ -354,59 +300,69 @@ public class Jogador extends Actor
 
     /**
      * Verifica se o jogador está atualmente invulnerável a dano.
-     * Usado por inimigos para saber se podem aplicar dano.
      * @return true se 'tempoInvulneravel' for maior que 0, false caso contrário.
      */
-
     public boolean estaInvulneravel(){
         return tempoInvulneravel != 0;
     }
 
     /**
      * Aumenta a vida do jogador em 1.
-     * Geralmente chamado por um item coletável (ex: Coração).
      */
-
     public void aumentarVida(){
         vida++;
     }
 
     /**
+     * Método que modifca a vida
+     */
+    
+    public void definirVida(int novaVida){
+        this.vida = novaVida;
+    }
+    
+    /**
      * Obtém a contagem atual de vida do jogador.
-     * Usado pelo 'Mundo' para exibir na tela.
      * @return O valor inteiro da vida atual.
      */
-
     public int obterVida(){
         return vida;
     }
 
     /**
      * Incrementa a contagem de moedas do jogador em 1.
-     * Geralmente chamado por um item coletável (ex: Moeda).
      */
-
     public void pegarMoeda(){
         moedas++;
     }
 
     /**
      * Obtém a contagem atual de moedas do jogador.
-     * Usado pelo 'Mundo' para exibir na tela.
      * @return O valor inteiro das moedas atuais.
      */
-
     public int obterMoedas(){
         return moedas;
+    }
+    
+    /**
+     * Incrementa o contador de inimigos mortos.
+     * Chamado quando o jogador derrota um inimigo.
+     */
+    public void incrementarInimigosMortos(){
+        inimigosMortos++;
+    }
+    
+    /**
+     * Obtém a contagem atual de inimigos mortos.
+     * @return O valor inteiro dos inimigos mortos.
+     */
+    public int obterInimigosMortos(){
+        return inimigosMortos;
     }
 
     /**
      * Mecanismo interno de contagem de tempo.
-     * Usa 'cont' para contar os ciclos (frames) do 'act'.
-     * A cada 60 ciclos (aproximadamente 1 segundo), incrementa a 
-     * variável 'tempo' (segundos) e zera 'cont'.
      */
-
     private void contarTempo(){
         if(cont == 60){
             tempo++;
@@ -419,33 +375,72 @@ public class Jogador extends Actor
 
     /**
      * Obtém o tempo total de partida decorrido, em segundos.
-     * Usado pelo 'Mundo' para exibir na tela.
      * @return O tempo total em segundos.
      */
-
     public int obterTempo(){
         return tempo;
+    }
+    
+    /**
+     * Calcula a pontuação base do jogador usando os status atuais.
+     * (Moedas * 10) + (Vida * 20) + (Inimigos Mortos * 30).
+     * @return A pontuação base atual.
+     */
+    public int calcularPontuacaoBase(){
+        return (moedas * 10) + (vida * 20) + (inimigosMortos * 30);
+    }
+    
+    /**
+     * Calcula a pontuação final (com bônus de tempo) ao fim de uma partida
+     * (derrota ou vitória de fase), utilizando a fórmula original do HUD.
+     * @return A pontuação total com o bônus de tempo aplicado.
+     */
+    public int calcularPontuacaoFinal(){
+        int pontosBase = calcularPontuacaoBase();
+        int bonus = 0;
+
+        // Lógica de bônus por tempo (tempo está em segundos)
+        if(tempo <= 180){ // 3 minutos
+            bonus = 100;
+        }
+        else if(tempo <= 300){ // 5 minutos
+            bonus = 50;
+        }
+        else if(tempo <= 420){ // 7 minutos
+            bonus = 25;
+        }
+        else {
+            bonus = 5;
+        }
+        
+        // Aplica o bônus: pontos *= (int)(bonus / 2.5);
+        // O valor base é multiplicado pelo fator de bônus.
+        return pontosBase * (int)(bonus / 2.5); 
     }
 
     /**
      * Verifica se a quantidade vidas do jogador é menor do que 0,
-     * em caso afirmativo "GAME OVER" é decretado.
+     * em caso afirmativo "GAME OVER" é decretado, e a pontuação final é calculada.
      */
-
     private void verificarMorte(){
         if(vida <= 0){
-            HUD hud = new HUD(this);
-
+            // Calcula a pontuação final usando a lógica movida para cá
+            int pontuacaoFinal = calcularPontuacaoFinal();
+            
+            // O jogador é responsável por passar a pontuação para a tela de derrota
             Som.obterInstancia().mutarTrilha();
-
-            Greenfoot.setWorld(new Tela_Derrota(hud.obterPontuacaoFinal(true), obterTempo()));
+            
+            // Passa a pontuação final calculada para a Tela_Derrota
+            Greenfoot.setWorld(new Tela_Derrota(pontuacaoFinal, obterTempo()));
+            
+            // É uma boa prática parar a execução do jogo no Greenfoot
+            Greenfoot.stop();
         }
     }
 
     /***
      * Retorna a posição do jogador no eixo X.
      */
-
     public int obterPosX(){
         return getX();
     }
@@ -453,7 +448,6 @@ public class Jogador extends Actor
     /***
      * Retorna a posição do jogador no eixo Y.
      */
-
     public int obterPosY(){
         return getY();
     }
@@ -481,7 +475,6 @@ public class Jogador extends Actor
      * Método que verifica se há alguma barreira a frente do jogador.
      * @return true se houver uma barreira, false caso contrário.
      */
-
     private boolean verficaObstaculoAFrente(){
         int larguraJogador = getImage().getWidth();
         int xDistancia = (int)(larguraJogador/2);
@@ -495,7 +488,6 @@ public class Jogador extends Actor
      * Método que verifica se há alguma barreira atrás do jogador.
      * @return true se houver uma barreira, false caso contrário.
      */
-
     private boolean verficaObstaculoAtras(){
         int larguraJogador = getImage().getWidth();
         int xDistancia = (int)(larguraJogador/-2);

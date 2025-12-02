@@ -1,66 +1,38 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*;
 
 /**
  * A classe HUD é um Ator responsável por exibir 
  * informações vitais do jogo na tela, como a vida do jogador, 
  * a contagem de moedas e o tempo decorrido.
- * * Ele atualiza essas informações a cada ciclo do jogo (frame).
+ * Ele atualiza essas informações a cada ciclo do jogo (frame).
  */
 
 public class HUD extends Actor {
-    //Referência ao jogador para obter os dados (vida, moedas, tempo) a serem exibidos.
+    // Referência ao jogador para obter os dados (vida, moedas, tempo).
     private Jogador jogador;
-    //Armazena a imagem do ícone de coração para ser desenhada.
+    
+    // Armazena a imagem do ícone de coração para ser desenhada.
     private GreenfootImage coracao = new GreenfootImage("coracao.png");
-    //Armazena a imagem do ícone de moeda para ser desenhada.
+    
+    // Armazena a imagem do ícone de moeda para ser desenhada.
     private GreenfootImage moeda = new GreenfootImage("moeda.png");
-    //Armazena a quantidade de pontos durante uma partida
-    private int pontos;
-    
-    private int inimigosMortos;
-    
-    private int pontosFaseAtual;
     
     /**
      * Construtor da classe HUD.
-     * * @param jogador A instância do Jogador que está no mundo. 
-     * É necessário para que o HUD possa consultar 
+     * @param jogador A instância do Jogador que está no mundo. 
+     * É necessária para que o HUD possa consultar 
      * os status (vida, moedas, etc.) do jogador.
      */
     
     public HUD(Jogador jogador) {
         this.jogador = jogador;
 
-        coracao = new GreenfootImage("coracao.png");
-        moeda = new GreenfootImage("moeda.png");
-        
-        pontos = 0;
-        
-        inimigosMortos = 0;
-        
-        pontosFaseAtual = 0;
+        moeda.scale(20, 20); // Ajuste de tamanho se necessário
         
         // Chama o método de atualização uma vez no construtor 
         // para exibir o HUD inicial assim que ele é criado.
         atualizarHUD();
     }
-    
-    
-    public HUD() {
-        jogador = new Jogador();
-
-        coracao = new GreenfootImage("coracao.png");
-        moeda = new GreenfootImage("moeda.png");
-        
-        pontos = 0;
-        
-        pontosFaseAtual = 0;
-        
-        // Chama o método de atualização uma vez no construtor 
-        // para exibir o HUD inicial assim que ele é criado.
-        atualizarHUD();
-    }
-    
     
     /**
      * Método principal de atuação (loop) do HUD.
@@ -75,9 +47,6 @@ public class HUD extends Actor {
 
     /**
      * Método central que desenha todas as informações do HUD.
-     * Ele cria uma nova imagem transparente (`GreenfootImage`), desenha
-     * os ícones (corações, moeda) e o texto (contador de moedas, tempo)
-     * nela, e então define essa imagem composta como a imagem do Ator HUD.
      */
     
     private void atualizarHUD() {
@@ -99,48 +68,12 @@ public class HUD extends Actor {
         // --- Desenha o Tempo ---
         img.drawString("Tempo: " + jogador.obterTempo() + "s", 90 , 53);
         
-        //-- Desenha a Pontuação --
+        //-- Desenha a Pontuação Total do Jogo --
+        // O HUD consulta a pontuação acumulada do Singleton Pontuacao.
+        int pontuacaoTotal = Pontuacao.obterInstancia().obterPontuacaoTotalAcumulada(); 
         
-        calcPontos();
-        
-        img.drawString("Pontos: " + pontos, 90,73);
+        img.drawString("Pontos: " + pontuacaoTotal, 90,73);
         
         setImage(img);
-    }
-
-    private void calcPontos(){
-        pontos = (jogador.obterMoedas() * 10) + (jogador.obterVida() * 20) + (inimigosMortos * 30);
-        pontosFaseAtual = (jogador.obterMoedas() * 10) + (jogador.obterVida() * 20) + (inimigosMortos * 30);
-    }
-
-    public int obterPontuacaoFinal(boolean estaVivo){
-        if(!estaVivo){
-            int bonus = 0;
-        
-            if(jogador.obterTempo() <= 120){
-                bonus = 100;
-            }
-            else if(jogador.obterTempo() <= 180){
-                bonus = 50;
-            }
-            else if(jogador.obterTempo() <= 300){
-                bonus = 25;
-            }
-            else {
-                bonus = 5;
-            }
-            
-            return pontos *= (int)(bonus / 2.5);
-        }
-    
-        return pontos;
-    }
-
-    public void pontuarMorteInimigo(){
-        inimigosMortos++;
-    }
- 
-    public int obterPontos(){
-        return pontos;
     }
 }

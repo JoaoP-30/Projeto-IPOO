@@ -85,8 +85,8 @@ public class Som{
         tocaTrilhas = trilhas.get(trilha);
 
         if(tocaTrilhas != null){
-            tocaTrilhas.setVolume(30);
-            tocaTrilhas.play();
+            //tocaTrilhas.setVolume(30);
+            //tocaTrilhas.play();
         }
     }        
 
@@ -111,7 +111,7 @@ public class Som{
 
     public void mutarTrilha(){
         if(tocaTrilhas != null){
-            tocaTrilhas.stop();
+            //tocaTrilhas.stop();
         }
     }
 
@@ -121,7 +121,7 @@ public class Som{
     
     public void voltarTrilha(){
         if(tocaTrilhas != null){
-            tocaTrilhas.playLoop();
+            //tocaTrilhas.playLoop();
         }
     }
 

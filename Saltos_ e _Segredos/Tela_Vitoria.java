@@ -72,16 +72,13 @@ public class Tela_Vitoria extends Fases
         int espacoY = 30;
 
       
-        Pontuacao.obterInstancia().organizarPontuacao();
+        Pontuacao.obterInstancia().obterPontuacaoTotalLiquida();        
         
         fundo.drawString("Fase 1: " + Pontuacao.obterInstancia().obterPontuacaoFase("Fase_1") + " pnts", coluna1_X, inicioY);
         fundo.drawString("Fase 2: " + Pontuacao.obterInstancia().obterPontuacaoFase("Fase_2")  + " pts", coluna2_X, inicioY);
         
         fundo.drawString("Fase 3: " + Pontuacao.obterInstancia().obterPontuacaoFase("Fase_3") + " pts", coluna1_X, inicioY + espacoY);
         fundo.drawString("Fase 4: " + Pontuacao.obterInstancia().obterPontuacaoFase("Fase_4") + " pts", coluna2_X, inicioY + espacoY);
-        
-        fundo.drawString("Fase 5: " + Pontuacao.obterInstancia().obterPontuacaoFase("Fase_5") + " pts", coluna1_X, inicioY + (espacoY * 2));
-        fundo.drawString("Fase 6: " + Pontuacao.obterInstancia().obterPontuacaoFase("Fase_6") + " pts", coluna2_X, inicioY + (espacoY * 2));
 
         // 6. Botão Voltar
         PainelJogo btnMenu = new PainelJogo("Voltar ao Menu", 100);

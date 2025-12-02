@@ -23,6 +23,7 @@ public class Fase_2 extends Fases
     public Fase_2(Jogador jogador)
     {            
         this.jogador = jogador;
+        jogador.definirVida(jogador.obterVida() + 1);
             
         Som.obterInstancia().tocarTrilha("Tema1.wav");
 
@@ -30,22 +31,7 @@ public class Fase_2 extends Fases
         
         prepare();
     }
-    
-    /**
-     * Construtor auxiliar para objetos da classe Fase_2.
-     * Tem por objetivo facilitar a crição/modificação do mesmo.
-     */
-    
-    
-    public Fase_2(){    
-        jogador = new Jogador();
         
-        hud = new HUD(jogador);
-        
-        prepare();
-    }
-    
-    
     /**
      * Prepara o mundo da Fase 2.
      * Este método é responsável por criar e adicionar todos os atores 
@@ -156,7 +142,7 @@ public class Fase_2 extends Fases
      */
     
     public void irParaProximaFase(){
-        Pontuacao.obterInstancia().adicionarPontuacao("Fase_2",hud.obterPontos());
+        Pontuacao.obterInstancia().adicionarPontuacao("Fase_2",Pontuacao.obterInstancia().obterPontuacaoTotalLiquida());
         
         Som.obterInstancia().mutarTrilha();
         

@@ -11,8 +11,7 @@ public class Fase_4 extends Fases
 {
     //O objeto Jogador que está sendo controlado na fase.
     private Jogador jogador;
-    
-    //O objeto HUD (Heads-Up Display) para mostrar informações do jogo.
+    //Instância da classe HUD, usada para exibir as informações do jogador 
     private HUD hud;
 
     /**
@@ -21,21 +20,11 @@ public class Fase_4 extends Fases
      * (por exemplo, ao avançar de uma fase anterior).
      * @param jogador O objeto Jogador a ser usado nesta fase.
      */
-    public Fase_4(Jogador jogador){
-        this.jogador = jogador;
-        
-        prepare();
-    }
-
-    /**
-     * Construtor padrão para objetos da classe Fase_6.
-     * <p>
-     * Cria uma nova instância de {@link Jogador} e configura o mundo.
-     * </p>
-     */
-    public Fase_4()
+    
+    public Fase_4(Jogador jogador)
     {
-        jogador = new Jogador();
+        this.jogador = jogador;
+        jogador.definirVida(jogador.obterVida() + 1);
         
         prepare();
     }
@@ -134,13 +123,13 @@ public class Fase_4 extends Fases
      */
     public void irParaProximaFase(){
         // Salva a pontuação desta fase
-        Pontuacao.obterInstancia().adicionarPontuacao("Fase_4",hud.obterPontos());
+        Pontuacao.obterInstancia().adicionarPontuacao("Fase_4",Pontuacao.obterInstancia().obterPontuacaoTotalLiquida());
         
         // Muta a trilha sonora
         Som.obterInstancia().mutarTrilha();
 
         // Obtém a pontuação e o tempo finais
-        int pontuacaoFinal = hud.obterPontuacaoFinal(false);
+        int pontuacaoFinal = Pontuacao.obterInstancia().obterPontuacaoTotalLiquida();
         int tempoFinal = jogador.obterTempo();
 
         // Muda para a Tela de Vitória, passando a pontuação e tempo finais

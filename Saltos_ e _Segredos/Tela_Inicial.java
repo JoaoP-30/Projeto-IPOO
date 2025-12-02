@@ -34,15 +34,15 @@ public class Tela_Inicial extends Fases
         int yBotao3 = 430; // Botão de baixo
         
         // Botão 1: 1 Jogador (id 1)
-        PainelJogo btn1 = new PainelJogo("1 Jogador", 1);
+        PainelJogo btn1 = new PainelJogo("Começar partida", 1);
         addObject(btn1, xCentro, yBotao1);
         
         // Botão 2: 2 Jogadores (id 2)
-        PainelJogo btn2 = new PainelJogo("2 Jogadores", 2);
+        PainelJogo btn2 = new PainelJogo("Comandos", 2);
         addObject(btn2, xCentro, yBotao2);
         
         // Botão 3: Como Jogar? (id 3)
-        PainelJogo btnComoJogar = new PainelJogo("Como Jogar?", 3); 
+        PainelJogo btnComoJogar = new PainelJogo("Dicas", 3); 
         addObject(btnComoJogar, xCentro, yBotao3);
     }
 
@@ -55,13 +55,13 @@ public class Tela_Inicial extends Fases
         }
         else if (id == 2)
         {
-            //Atualmente não faz nada
+            Greenfoot.setWorld(new Tela_Instrucoes());
         }
         // Verifica se o botão "Como Jogar?" foi clicado
         else if (id == 3) 
         {
             // Vai para a tela de instruções que acabamos de criar
-            Greenfoot.setWorld(new Tela_Instrucoes());
+            Greenfoot.setWorld(new Dicas());
         }
     }
 
