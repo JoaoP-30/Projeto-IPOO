@@ -22,7 +22,7 @@ public class Fase_1 extends Fases
     public Fase_1()
     {    
         jogador = new Jogador();
-        jogador.definirVida(5);
+        jogador.definirVida(1);
         
         Som.obterInstancia().tocarTrilha("Tema1.wav");
         prepare();
@@ -146,12 +146,21 @@ public class Fase_1 extends Fases
      */
     
     public void irParaProximaFase(){
-        Pontuacao.obterInstancia().adicionarPontuacao("Fase_1",Pontuacao.obterInstancia().obterPontuacaoTotalLiquida());
+        Pontuacao.obterInstancia().adicionarPontuacao("Fase_1", jogador.calcularPontuacaoBase());
         
         Som.obterInstancia().mutarTrilha();
         
         Fase_2 proximaFase = new Fase_2(jogador);
         
         Greenfoot.setWorld(proximaFase);
+    }
+
+    /***
+     * Sobrescreve o método responsável por armazenar a pontuação atual em caso de derrota.  
+     */
+    
+    @Override
+    public void setarPontuacaoDaFase(){
+        Pontuacao.obterInstancia().adicionarPontuacao("Fase_1", jogador.calcularPontuacaoBase());
     }
 }

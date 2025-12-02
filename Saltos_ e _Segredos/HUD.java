@@ -70,7 +70,8 @@ public class HUD extends Actor {
         
         //-- Desenha a Pontuação Total do Jogo --
         // O HUD consulta a pontuação acumulada do Singleton Pontuacao.
-        int pontuacaoTotal = Pontuacao.obterInstancia().obterPontuacaoTotalAcumulada(); 
+        //int pontuacaoTotal = Pontuacao.obterInstancia().obterPontuacaoTotalAcumulada(); 
+        int pontuacaoTotal = jogador.calcularPontuacaoBase();
         
         img.drawString("Pontos: " + pontuacaoTotal, 90,73);
         

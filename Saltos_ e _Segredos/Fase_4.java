@@ -123,16 +123,25 @@ public class Fase_4 extends Fases
      */
     public void irParaProximaFase(){
         // Salva a pontuação desta fase
-        Pontuacao.obterInstancia().adicionarPontuacao("Fase_4",Pontuacao.obterInstancia().obterPontuacaoTotalLiquida());
+        Pontuacao.obterInstancia().adicionarPontuacao("Fase_4",jogador.calcularPontuacaoBase());
         
         // Muta a trilha sonora
         Som.obterInstancia().mutarTrilha();
 
         // Obtém a pontuação e o tempo finais
-        int pontuacaoFinal = Pontuacao.obterInstancia().obterPontuacaoTotalLiquida();
+        int pontuacaoFinal = jogador.calcularPontuacaoFinal();
         int tempoFinal = jogador.obterTempo();
 
         // Muda para a Tela de Vitória, passando a pontuação e tempo finais
         Greenfoot.setWorld(new Tela_Vitoria(pontuacaoFinal, tempoFinal));
+    }
+
+    /***
+     * Sobrescreve o método responsável por armazenar a pontuação atual em caso de derrota.  
+     */
+    
+    @Override
+    public void setarPontuacaoDaFase(){
+        Pontuacao.obterInstancia().adicionarPontuacao("Fase_4", jogador.calcularPontuacaoBase());
     }
 }

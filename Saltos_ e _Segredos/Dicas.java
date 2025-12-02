@@ -75,9 +75,9 @@ public class Dicas extends Fases
         fundo.drawString("•", xComando, yTexto);
         fundo.drawString("Bônus:", xComando + 30, yTexto);
         yTexto += espacoLinha;
-        fundo.drawString("Em caso de vitória, quanto menor a duração da partida, maior será o seu bônus de pontuação.", xDescricao + 50, yTexto);
+        fundo.drawString("Em caso de vitória, quanto menor a duração da partida e maior a quantiade de vidas", xDescricao + 50, yTexto);
         yTexto += espacoLinha;
-        fundo.drawString("Em caso de derrota, não há bônus.", xDescricao + 50, yTexto);
+        fundo.drawString("restantes maior será o seu bônus de pontuação. Em caso de derrota, não há bônus.", xDescricao + 50, yTexto);
         yTexto += espacoLinha;
         
         //-- Inimigos ---

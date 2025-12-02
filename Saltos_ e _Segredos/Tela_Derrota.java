@@ -15,9 +15,9 @@ public class Tela_Derrota extends Fases
      * @param moedas O número total de moedas/pontos.
      * @param tempo O tempo final do jogador.
      */
-    public Tela_Derrota(int moedas, int tempo)
+    public Tela_Derrota(int pnts, int tempo)
     {    
-        this.pontosTotal = moedas;
+        this.pontosTotal = pnts;
         this.tempoTotal = tempo;
 
         prepararVisual();
@@ -26,7 +26,7 @@ public class Tela_Derrota extends Fases
     /***
      * Construtor auxiliar para facilitar testes.
      */
-    
+
     public Tela_Derrota()
     {    
         pontosTotal = 0;
@@ -43,12 +43,12 @@ public class Tela_Derrota extends Fases
         // 1. Configura a imagem de fundo
         GreenfootImage fundo = new GreenfootImage("como_jogar.png");
         fundo.scale(getWidth(), getHeight());
-        
+
         setBackground(fundo);
 
         // 3. Título "GAME OVER!"
         fundo.setColor(new Color(255, 50, 50));
-        
+
         fundo.setFont(new Font("Impact", true, false, 60));
 
         // Centraliza o texto horizontalmente
@@ -70,14 +70,13 @@ public class Tela_Derrota extends Fases
         int inicioY = getHeight() / 2 + 30;
         int espacoY = 30;
 
-        Pontuacao.obterInstancia().obterPontuacaoTotalLiquida();
         
-        fundo.drawString("Fase 1: " + Pontuacao.obterInstancia().obterPontuacaoFase("Fase_1") + " pnts", coluna1_X, inicioY);
-        fundo.drawString("Fase 2: " + Pontuacao.obterInstancia().obterPontuacaoFase("Fase_2")  + " pts", coluna2_X, inicioY);
-        
-        fundo.drawString("Fase 3: " + Pontuacao.obterInstancia().obterPontuacaoFase("Fase_3") + " pts", coluna1_X, inicioY + espacoY);
-        fundo.drawString("Fase 4: " + Pontuacao.obterInstancia().obterPontuacaoFase("Fase_4") + " pts", coluna2_X, inicioY + espacoY);
-    
+        fundo.drawString("Fase 1: " + Pontuacao.obterInstancia().obterPontuacaoTotalLiquidaFase("Fase_1") + " pnts", coluna1_X, inicioY);
+        fundo.drawString("Fase 2: " + Pontuacao.obterInstancia().obterPontuacaoTotalLiquidaFase("Fase_2")  + " pts", coluna2_X, inicioY);
+
+        fundo.drawString("Fase 3: " + Pontuacao.obterInstancia().obterPontuacaoTotalLiquidaFase("Fase_3") + " pts", coluna1_X, inicioY + espacoY);
+        fundo.drawString("Fase 4: " + Pontuacao.obterInstancia().obterPontuacaoTotalLiquidaFase("Fase_4") + " pts", coluna2_X, inicioY + espacoY);
+
         // 6. Botão Voltar
         PainelJogo btnMenu = new PainelJogo("Voltar ao Menu", 100);
         // Posiciona o botão centralizado na parte inferior

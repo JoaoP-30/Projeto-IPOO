@@ -16,9 +16,9 @@ public class Tela_Vitoria extends Fases
      * @param moedas O número total de moedas/pontos.
      * @param tempo O tempo final do jogador.
      */
-    public Tela_Vitoria(int moedas, int tempo)
+    public Tela_Vitoria(int pnts, int tempo)
     {    
-        this.pontosTotal = moedas;
+        this.pontosTotal = pnts;
         this.tempoTotal = tempo;
         
         prepararVisual();
@@ -70,15 +70,12 @@ public class Tela_Vitoria extends Fases
         int coluna2_X = getWidth() / 2 + 50;
         int inicioY = getHeight() / 2 + 30;
         int espacoY = 30;
-
-      
-        Pontuacao.obterInstancia().obterPontuacaoTotalLiquida();        
+            
+        fundo.drawString("Fase 1: " + Pontuacao.obterInstancia().obterPontuacaoTotalLiquidaFase("Fase_1") + " pnts", coluna1_X, inicioY);
+        fundo.drawString("Fase 2: " + Pontuacao.obterInstancia().obterPontuacaoTotalLiquidaFase("Fase_2")  + " pts", coluna2_X, inicioY);
         
-        fundo.drawString("Fase 1: " + Pontuacao.obterInstancia().obterPontuacaoFase("Fase_1") + " pnts", coluna1_X, inicioY);
-        fundo.drawString("Fase 2: " + Pontuacao.obterInstancia().obterPontuacaoFase("Fase_2")  + " pts", coluna2_X, inicioY);
-        
-        fundo.drawString("Fase 3: " + Pontuacao.obterInstancia().obterPontuacaoFase("Fase_3") + " pts", coluna1_X, inicioY + espacoY);
-        fundo.drawString("Fase 4: " + Pontuacao.obterInstancia().obterPontuacaoFase("Fase_4") + " pts", coluna2_X, inicioY + espacoY);
+        fundo.drawString("Fase 3: " + Pontuacao.obterInstancia().obterPontuacaoTotalLiquidaFase("Fase_3") + " pts", coluna1_X, inicioY + espacoY);
+        fundo.drawString("Fase 4: " + Pontuacao.obterInstancia().obterPontuacaoTotalLiquidaFase("Fase_4") + " pts", coluna2_X, inicioY + espacoY);
 
         // 6. Botão Voltar
         PainelJogo btnMenu = new PainelJogo("Voltar ao Menu", 100);

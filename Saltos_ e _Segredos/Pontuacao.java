@@ -26,7 +26,6 @@ public class Pontuacao{
         pontos.put("Fase_2",0);
         pontos.put("Fase_3",0);
         pontos.put("Fase_4",0);
-        // A listaPontos foi removida.
     }
 
     /**
@@ -57,6 +56,7 @@ public class Pontuacao{
      * @param fase O nome da fase a ser consultada.
      * @return A pontuação total acumulada daquela fase, ou 0 se a fase não estiver registrada.
      */
+    
     public int obterPontuacaoFase(String fase){
         if(pontos.get(fase) != null){
             return pontos.get(fase);
@@ -72,6 +72,7 @@ public class Pontuacao{
      * @param faseAn O nome da fase anterior.
      * @return A pontuação líquida da fase atual. Retorna 0 se o cálculo for negativo.
      */
+    
     private int calculaPontuacaoReal(String faseAt, String faseAn){
         int faseAtualAcumulada = obterPontuacaoFase(faseAt);
         int faseAnteriorAcumulada = obterPontuacaoFase(faseAn);
@@ -90,16 +91,23 @@ public class Pontuacao{
      * (não acumuladas) de cada fase, usando as chaves das fases.
      * @return A soma da pontuação líquida de todas as fases.
      */
-    public int obterPontuacaoTotalLiquida(){
-        // Fase 1 é sempre pontuação líquida = pontuação acumulada
-        int total = obterPontuacaoFase("Fase_1"); 
+    
+    public int obterPontuacaoTotalLiquidaFase(String fase){
         
-        // Adiciona a pontuação líquida das fases seguintes
-        total += calculaPontuacaoReal("Fase_2", "Fase_1");
-        total += calculaPontuacaoReal("Fase_3", "Fase_2");
-        total += calculaPontuacaoReal("Fase_4", "Fase_3");
+        if(fase.equalsIgnoreCase("Fase_1")){
+            return pontos.get("Fase_1");
+        }
+        else if(fase.equalsIgnoreCase("Fase_2")){
+            return calculaPontuacaoReal("Fase_2","Fase_1");    
+        }
+        else if(fase.equalsIgnoreCase("Fase_3")){
+            return calculaPontuacaoReal("Fase_3","Fase_2");
+        }
+        else if(fase.equalsIgnoreCase("Fase_4")){
+            return calculaPontuacaoReal("Fase_4","Fase_3");
+        }
         
-        return total;
+        return 0;
     }
     
     /**

@@ -4,7 +4,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * Representa o jogador principal no jogo.
  * Esta classe controla o movimento (horizontal e vertical), as animações e estado (como vida, moedas)
  * e as interações de físcia (salto, gravidade) do personagem controlado pelo usuário.
- * @version 3.1 - Lógica de pontuação movida do HUD para o Jogador.
+ * @version 3.5 - Lógica de pontuação movida do HUD para o Jogador.
  */
 
 public class Jogador extends Actor
@@ -93,6 +93,8 @@ public class Jogador extends Actor
         verificaQueda();
         teto();
     }
+
+    // --- MÉTODOS QUE DEFINEM AS AÇÕES DO JOGADOR --- 
 
     /**
      * Verifica a entrada do teclado (teclas "right" e "left", e "up").
@@ -271,6 +273,61 @@ public class Jogador extends Actor
         return false;
     }
 
+    /***
+     * Método que verifica se há alguma barreira a frente do jogador.
+     * @return true se houver uma barreira, false caso contrário.
+     */
+
+    private boolean verficaObstaculoAFrente()
+    {
+        int larguraJogador = getImage().getWidth();
+        int xDistancia = (int)(larguraJogador/2);
+
+        Actor barreira = getOneObjectAtOffset(xDistancia, 0, Barreira.class);
+
+        return barreira != null;
+    }
+
+    /***
+     * Método que verifica se há alguma barreira atrás do jogador.
+     * @return true se houver uma barreira, false caso contrário.
+     */
+    private boolean verficaObstaculoAtras()
+    {
+        int larguraJogador = getImage().getWidth();
+        int xDistancia = (int)(larguraJogador/-2);
+
+        Actor barreira = getOneObjectAtOffset(xDistancia, 0, Barreira.class);
+
+        return barreira != null;
+    }
+
+    /***
+     * Método responsável por exercutar o ataque.
+     */
+    
+    public boolean ataque()
+    {
+        tempoDeAtaque--;
+
+        if(Greenfoot.isKeyDown("space") && tempoDeAtaque <= 0 && direcaoAtaque ==1)
+        {
+            getWorld().addObject(new AtaqueDireito(), getX(), getY());
+            tempoDeAtaque = 60;
+            return true;
+        }
+        if(Greenfoot.isKeyDown("space") && tempoDeAtaque <= 0 && direcaoAtaque ==0)
+        {
+            getWorld().addObject(new AtaqueEsquerdo(), getX(), getY());
+            tempoDeAtaque = 60;
+            return true;
+        }
+        return false;
+    }
+    
+    
+    // --- MÉTODOS QUE MODIFCAM O ESTADO DO JOGADOR ---
+
     /**
      * Define as posições inicias no eixo x e y.
      * @param posY A posião no eixo Y inicial.
@@ -299,14 +356,6 @@ public class Jogador extends Actor
     }
 
     /**
-     * Verifica se o jogador está atualmente invulnerável a dano.
-     * @return true se 'tempoInvulneravel' for maior que 0, false caso contrário.
-     */
-    public boolean estaInvulneravel(){
-        return tempoInvulneravel != 0;
-    }
-
-    /**
      * Aumenta a vida do jogador em 1.
      */
     public void aumentarVida(){
@@ -316,17 +365,9 @@ public class Jogador extends Actor
     /**
      * Método que modifca a vida
      */
-    
+
     public void definirVida(int novaVida){
         this.vida = novaVida;
-    }
-    
-    /**
-     * Obtém a contagem atual de vida do jogador.
-     * @return O valor inteiro da vida atual.
-     */
-    public int obterVida(){
-        return vida;
     }
 
     /**
@@ -337,27 +378,11 @@ public class Jogador extends Actor
     }
 
     /**
-     * Obtém a contagem atual de moedas do jogador.
-     * @return O valor inteiro das moedas atuais.
-     */
-    public int obterMoedas(){
-        return moedas;
-    }
-    
-    /**
      * Incrementa o contador de inimigos mortos.
      * Chamado quando o jogador derrota um inimigo.
      */
     public void incrementarInimigosMortos(){
         inimigosMortos++;
-    }
-    
-    /**
-     * Obtém a contagem atual de inimigos mortos.
-     * @return O valor inteiro dos inimigos mortos.
-     */
-    public int obterInimigosMortos(){
-        return inimigosMortos;
     }
 
     /**
@@ -373,6 +398,32 @@ public class Jogador extends Actor
         }
     }
 
+    // --- MÉTODOS QUE RETORNAM O ESTADO DO JOGADOR ---
+
+    /**
+     * Verifica se o jogador está atualmente invulnerável a dano.
+     * @return true se 'tempoInvulneravel' for maior que 0, false caso contrário.
+     */
+    public boolean estaInvulneravel(){
+        return tempoInvulneravel != 0;
+    }
+
+    /**
+     * Obtém a contagem atual de vida do jogador.
+     * @return O valor inteiro da vida atual.
+     */
+    public int obterVida(){
+        return vida;
+    }
+
+    /**
+     * Obtém a contagem atual de moedas do jogador.
+     * @return O valor inteiro das moedas atuais.
+     */
+    public int obterMoedas(){
+        return moedas;
+    }
+
     /**
      * Obtém o tempo total de partida decorrido, em segundos.
      * @return O tempo total em segundos.
@@ -380,62 +431,13 @@ public class Jogador extends Actor
     public int obterTempo(){
         return tempo;
     }
-    
-    /**
-     * Calcula a pontuação base do jogador usando os status atuais.
-     * (Moedas * 10) + (Vida * 20) + (Inimigos Mortos * 30).
-     * @return A pontuação base atual.
-     */
-    public int calcularPontuacaoBase(){
-        return (moedas * 10) + (vida * 20) + (inimigosMortos * 30);
-    }
-    
-    /**
-     * Calcula a pontuação final (com bônus de tempo) ao fim de uma partida
-     * (derrota ou vitória de fase), utilizando a fórmula original do HUD.
-     * @return A pontuação total com o bônus de tempo aplicado.
-     */
-    public int calcularPontuacaoFinal(){
-        int pontosBase = calcularPontuacaoBase();
-        int bonus = 0;
-
-        // Lógica de bônus por tempo (tempo está em segundos)
-        if(tempo <= 180){ // 3 minutos
-            bonus = 100;
-        }
-        else if(tempo <= 300){ // 5 minutos
-            bonus = 50;
-        }
-        else if(tempo <= 420){ // 7 minutos
-            bonus = 25;
-        }
-        else {
-            bonus = 5;
-        }
-        
-        // Aplica o bônus: pontos *= (int)(bonus / 2.5);
-        // O valor base é multiplicado pelo fator de bônus.
-        return pontosBase * (int)(bonus / 2.5); 
-    }
 
     /**
-     * Verifica se a quantidade vidas do jogador é menor do que 0,
-     * em caso afirmativo "GAME OVER" é decretado, e a pontuação final é calculada.
+     * Obtém a contagem atual de inimigos mortos.
+     * @return O valor inteiro dos inimigos mortos.
      */
-    private void verificarMorte(){
-        if(vida <= 0){
-            // Calcula a pontuação final usando a lógica movida para cá
-            int pontuacaoFinal = calcularPontuacaoFinal();
-            
-            // O jogador é responsável por passar a pontuação para a tela de derrota
-            Som.obterInstancia().mutarTrilha();
-            
-            // Passa a pontuação final calculada para a Tela_Derrota
-            Greenfoot.setWorld(new Tela_Derrota(pontuacaoFinal, obterTempo()));
-            
-            // É uma boa prática parar a execução do jogo no Greenfoot
-            Greenfoot.stop();
-        }
+    public int obterInimigosMortos(){
+        return inimigosMortos;
     }
 
     /***
@@ -452,48 +454,64 @@ public class Jogador extends Actor
         return getY();
     }
 
-    public boolean ataque()
-    {
-        tempoDeAtaque--;
+    // --- MÉTODOS PARA VERIFICAR ESTADO DO JOGADOR ---
 
-        if(Greenfoot.isKeyDown("space") && tempoDeAtaque <= 0 && direcaoAtaque ==1)
-        {
-            getWorld().addObject(new AtaqueDireito(), getX(), getY());
-            tempoDeAtaque = 60;
-            return true;
-        }
-        if(Greenfoot.isKeyDown("space") && tempoDeAtaque <= 0 && direcaoAtaque ==0)
-        {
-            getWorld().addObject(new AtaqueEsquerdo(), getX(), getY());
-            tempoDeAtaque = 60;
-            return true;
-        }
-        return false;
+    /**
+     * Calcula a pontuação base do jogador usando os status atuais.
+     * (Moedas * 10) + (Vida * 20) + (Inimigos Mortos * 30).
+     * @return A pontuação base atual.
+     */
+    public int calcularPontuacaoBase(){
+        return (moedas * 10) + (inimigosMortos * 30);
     }
 
-    /***
-     * Método que verifica se há alguma barreira a frente do jogador.
-     * @return true se houver uma barreira, false caso contrário.
+    /**
+     * Calcula a pontuação final (com bônus de tempo) ao fim de uma partida
+     * (derrota ou vitória de fase).
+     * @return A pontuação total com o bônus de tempo aplicado.
      */
-    private boolean verficaObstaculoAFrente(){
-        int larguraJogador = getImage().getWidth();
-        int xDistancia = (int)(larguraJogador/2);
+    public int calcularPontuacaoFinal(){
+        int pontosBase = calcularPontuacaoBase();
+        int bonus = 0;
 
-        Actor barreira = getOneObjectAtOffset(xDistancia, 0, Barreira.class);
+        // Lógica de bônus por tempo (tempo está em segundos)
+        if(tempo <= 180){ // 3 minutos
+            bonus = 10 * (obterVida() * 10);
+        }
+        else if(tempo <= 300){ // 5 minutos
+            bonus = 8 * (obterVida() * 10);
+        }
+        else if(tempo <= 420){ // 7 minutos
+            bonus = 5 * (obterVida() * 10);
+        }
+        else {
+            bonus = 2 * (obterVida() * 10);
+        }
 
-        return barreira != null;
+        // Aplica o bônus: pontos *= (int)(bonus / 2.5);
+        // O valor base é multiplicado pelo fator de bônus.
+        return pontosBase * (int)(bonus / 2.5); 
     }
 
-    /***
-     * Método que verifica se há alguma barreira atrás do jogador.
-     * @return true se houver uma barreira, false caso contrário.
+    /**
+     * Verifica se a quantidade vidas do jogador é menor do que 0,
+     * em caso afirmativo "GAME OVER" é decretado, e a pontuação final é calculada.
      */
-    private boolean verficaObstaculoAtras(){
-        int larguraJogador = getImage().getWidth();
-        int xDistancia = (int)(larguraJogador/-2);
+    private void verificarMorte(){
+        if(vida <= 0){
+            // O jogador é responsável por passar a pontuação para a tela de derrota
+            Som.obterInstancia().mutarTrilha();
 
-        Actor barreira = getOneObjectAtOffset(xDistancia, 0, Barreira.class);
+            World mundo = getWorld();
 
-        return barreira != null;
+            if (mundo instanceof Fases)
+            {
+                ((Fases)mundo).setarPontuacaoDaFase();
+            }
+            
+            
+            // Passa a pontuação final calculada para a Tela_Derrota
+            Greenfoot.setWorld(new Tela_Derrota(calcularPontuacaoBase(), obterTempo()));
+        }
     }
 }

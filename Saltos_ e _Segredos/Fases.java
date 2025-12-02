@@ -12,7 +12,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Fases extends World
 {
     private Auxilia_Som som;   
-
+    
     /**
      * Construtor da superclasse Fases.
      * * Configura o tamanho padrão do mundo (1150x600 pixels),
@@ -41,7 +41,19 @@ public class Fases extends World
         getBackground().fill();
     }
 
-    public void botaoClicado(int id){
+    /***
+     * Verifica o botão clicado.
+     */
     
+    public void botaoClicado(int id){
+        // método vazio, que será sobrescrescrito em outros mundos quando necessário
+    }
+
+    /***
+     * Método responsável por armazenar a pontuação atual em caso de derrota.  
+     */
+    
+    public void setarPontuacaoDaFase(){
+        // método vazio, que será sobrescrescrito
     }
 }
