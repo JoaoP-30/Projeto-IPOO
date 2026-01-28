@@ -56,7 +56,7 @@
 2. Certifique-se de ter Java 8+ instalado
 3. Clone este repositório:
    ```bash
-   git clone https://github.com/seu-usuario/saltos-e-segredos.git
+   git clone https://github.com/JoaoP-30/Projeto-IPOO.git
    ```
 4. Abra o projeto no Greenfoot
 5. Explore as classes e contribua!
