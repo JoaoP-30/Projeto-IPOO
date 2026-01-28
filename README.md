@@ -50,13 +50,6 @@
 
 ---
 
-### 🚧 Status do projeto
-
-> ⚠️ **Em desenvolvimento**  
-Todas as classes fundamentais foram implementadas e estão funcionando conforme esperado. A arquitetura do projeto está solida, com os papéis de cada componente bem definidos.
-
----
-
 ### 🛠️ Como executar
 
 1. Instale o [Greenfoot](https://www.greenfoot.org/download)
