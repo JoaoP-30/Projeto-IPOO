@@ -9,7 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * * @version 1.0
  */
 
-public class Fases extends World
+public abstract class Fases extends World
 {
     private Auxilia_Som som;   
     
