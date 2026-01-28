@@ -78,5 +78,5 @@ Contribuições são bem-vindas! Para colaborar:
 - Siga o padrão de código e estilo definido no projeto
 
 ---
-
-![Tela Inicial](Saltos_\ e\ _Segredos/images/In_game/TelaInicial.png)
+<img src = "/Saltos_%20e%20_Segredos/images/In_game/TelaInicial.png" height = 300 alt = "Tela inicial">
+<img src = "/Saltos_%20e%20_Segredos/images/In_game/Fase1.png" height = "300" alt = "Fase 1">
